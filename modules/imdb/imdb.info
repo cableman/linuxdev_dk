@@ -1,0 +1,9 @@
+name = IMDB
+description = "Get information from IMDB API."
+core = 7.x
+package = linuxdev
+
+files[] = imdb.module
+files[] = imdb.install
+
+configure = admin/config/content/imdb/settings
