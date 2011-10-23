@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Linuxdev content types feature.
+ */
+
+include_once('linuxdev_content_types.features.inc');
