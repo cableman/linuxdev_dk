@@ -6,9 +6,11 @@
 
 $bg_header_color: #FFF;
 $bg_color: #EEE;
-
 $header_color_light: #000;
-$border-color: #BBB;
+$border_color: #BBB;
+$headline_color: #0062A0;
+$table_color: #000;
+$table_color_row: #EEE;
 
 html {
   background: #fff url('../images/bg_light.jpg') no-repeat top right;
@@ -32,15 +34,96 @@ html {
   @include rgba-background($bg_color, .90);
   padding: 16px 0;
   .region-content-inner {
-    border-left: 1px solid $border-color;
-    padding-left: 16px;
+    border-left: 1px solid $border_color;
+    padding: 16px;
   }
   .region-content {
+    #page-title {
+      font-size: 200%;
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+    h1 {
+      color: $headline_color;
+      font-size: 160%;
+      margin: 16px 0 4px 0;
+    }
+    h2 {
+      color: $headline_color;
+      margin: 16px 0 0 0;
+      font-size: 120%;
+    }
+    h2.block-title {
+      font-size: 140%;
+      margin: 0;
+      a {
+        &:link,
+        &:visited,
+        &:hover,
+        &:active {
+          text-decoration: none;
+        }
+      }
+    }
+    p {
+      margin-bottom: 12px;
+    }
+    .timestamp, .tags {
+      font-size: 80%;
+      font-style: italic;
+    }
+    .tags {
+      margin-bottom: 24px;
+    }
     .geshifilter {
       font-size: 12px;
+      margin-bottom: 12px;
+    }
+    ul {
+      list-style: disc;
+    }
+    .field-label {
+      font-weight: normal;
+      float: left;
+    }
+    .field-name-field-references {
+      clear: both;
+      float: left;
+      margin-bottom: 4px;
+      width: 100%;
+      .field-item {
+        float: left;
+        margin-right: 0.5em;
+      }
+    }
+    .field-type-taxonomy-term-reference .field-item {
+      margin-right: 0.5em;
     }
   }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    th {
+      @include rgba-background($table_color, .50);
+      padding-right: 1em;
+      text-align: left;
+      color: #FFF;
+    }
+    tbody {
+      tr {
+       background-color: $table_color_row;
+      }
+    }
+    td, th {
+      padding: 0.2em 0.5em;
+      border: 1px solid $border_color;
+    }
+  }
+  .node-links {
+    margin: 16px 0;
+  }
 }
+
 .section-footer {
   .zone-footer {
     min-height: 40px;

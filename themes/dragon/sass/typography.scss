@@ -6,8 +6,12 @@
 @include font-face("mgOpenModerna", font-files("mgOpenModerna/mgopenmodernabold-webfont.woff", "mgOpenModerna/mgopenmodernabold-webfont.ttf", "mgOpenModerna/mgopenmodernabold-webfont.svg"), "mgOpenModerna/mgopenmodernabold-webfont.eot", 'bold', 'bold');
 
 body {
-  font-family: "mgOpenModerna";
+  font-family: mgOpenModerna, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 15px;
   line-height: 130%;
+  h1,h2,h3,h4,h5 {
+    font-family: PTSansRegular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: 0.001em;
+  }
 }
 
