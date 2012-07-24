@@ -1,0 +1,55 @@
+@import "compass/reset";
+@import "compass/css3";
+@import "compass/utilities";
+@import "mixins.scss";
+@import "typography.scss";
+
+$bg_header_color: #FFF;
+$bg_color: #EEE;
+
+$header_color_light: #000;
+$border-color: #BBB;
+
+html {
+  background: #fff url('../images/bg_light.jpg') no-repeat top right;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.zone-branding {
+  background-color: $bg_header_color;
+  @include single-box-shadow($header_color_light, 0px, 8px, 0px);
+  margin-bottom: 8px;
+}
+
+.block-menu {
+  ul {
+   margin-left: 16px;
+  }
+}
+
+.zone-content {
+  @include rgba-background($bg_color, .90);
+  padding: 16px 0;
+  .region-content-inner {
+    border-left: 1px solid $border-color;
+    padding-left: 16px;
+  }
+  .region-content {
+    .geshifilter {
+      font-size: 12px;
+    }
+  }
+}
+.section-footer {
+  .zone-footer {
+    min-height: 40px;
+    background-color: $bg_header_color;
+    @include single-box-shadow($header_color_light, 0px, -8px, 0px);
+    text-align: center;
+    #block-system-powered-by {
+      position: relative;
+      top: 10px;
+    }
+  }
+}

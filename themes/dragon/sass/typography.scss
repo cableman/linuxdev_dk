@@ -1,0 +1,13 @@
+@import "compass/css3";
+@import "compass/utilities";
+@import "variables.scss";
+
+@include font-face("PTSansRegular", font-files("ptSans/PTS55F-webfont.woff", "ptSans/PTS55F-webfont.ttf", "ptSans/PTS55F-webfont.svg"), "ptSans/PTS55F-webfont.eot", 'normal', 'normal');
+@include font-face("mgOpenModerna", font-files("mgOpenModerna/mgopenmodernabold-webfont.woff", "mgOpenModerna/mgopenmodernabold-webfont.ttf", "mgOpenModerna/mgopenmodernabold-webfont.svg"), "mgOpenModerna/mgopenmodernabold-webfont.eot", 'bold', 'bold');
+
+body {
+  font-family: "mgOpenModerna";
+  font-size: 15px;
+  line-height: 130%;
+}
+

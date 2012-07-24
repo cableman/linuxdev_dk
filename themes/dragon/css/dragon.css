@@ -1,0 +1,122 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+@font-face {
+  font-family: "PTSansRegular";
+  src: url('fonts/ptSans/PTS55F-webfont.eot');
+  src: url('fonts/ptSans/PTS55F-webfont.eot?#iefix') format('eot'), url('fonts/ptSans/PTS55F-webfont.woff') format('woff'), url('fonts/ptSans/PTS55F-webfont.ttf') format('truetype'), url('fonts/ptSans/PTS55F-webfont.svg') format('svg');
+  font-weight: "normal";
+  font-style: "normal";
+}
+
+@font-face {
+  font-family: "mgOpenModerna";
+  src: url('fonts/mgOpenModerna/mgopenmodernabold-webfont.eot');
+  src: url('fonts/mgOpenModerna/mgopenmodernabold-webfont.eot?#iefix') format('eot'), url('fonts/mgOpenModerna/mgopenmodernabold-webfont.woff') format('woff'), url('fonts/mgOpenModerna/mgopenmodernabold-webfont.ttf') format('truetype'), url('fonts/mgOpenModerna/mgopenmodernabold-webfont.svg') format('svg');
+  font-weight: "bold";
+  font-style: "bold";
+}
+
+body {
+  font-family: "mgOpenModerna";
+  font-size: 15px;
+  line-height: 130%;
+}
+
+html {
+  background: white url("../images/bg_light.jpg") no-repeat top right;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.zone-branding {
+  background-color: white;
+  -webkit-box-shadow: 0px 8px 0px black;
+  -moz-box-shadow: 0px 8px 0px black;
+  box-shadow: 0px 8px 0px black;
+  margin-bottom: 8px;
+}
+
+.block-menu ul {
+  margin-left: 16px;
+}
+
+.zone-content {
+  background-color: rgba(238, 238, 238, 0.9);
+  zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#E6EEEEEE,endColorstr=#E6EEEEEE);
+  padding: 16px 0;
+}
+.zone-content .region-content-inner {
+  border-left: 1px solid #bbbbbb;
+  padding-left: 16px;
+}
+.zone-content .region-content .geshifilter {
+  font-size: 12px;
+}
+
+.section-footer .zone-footer {
+  min-height: 40px;
+  background-color: white;
+  -webkit-box-shadow: 0px -8px 0px black;
+  -moz-box-shadow: 0px -8px 0px black;
+  box-shadow: 0px -8px 0px black;
+  text-align: center;
+}
+.section-footer .zone-footer #block-system-powered-by {
+  position: relative;
+  top: 10px;
+}
