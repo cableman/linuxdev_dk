@@ -22,6 +22,7 @@ html {
   background-color: $bg_header_color;
   @include single-box-shadow($header_color_light, 0px, 8px, 0px);
   margin-bottom: 8px;
+  height: 90px;
 }
 
 .block-menu {
