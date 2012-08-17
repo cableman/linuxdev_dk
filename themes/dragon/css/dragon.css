@@ -131,6 +131,9 @@ html {
 .zone-content .region-content h2.block-title a:link, .zone-content .region-content h2.block-title a:visited, .zone-content .region-content h2.block-title a:hover, .zone-content .region-content h2.block-title a:active {
   text-decoration: none;
 }
+.zone-content .region-content em {
+  font-style: italic;
+}
 .zone-content .region-content p {
   margin-bottom: 12px;
 }
