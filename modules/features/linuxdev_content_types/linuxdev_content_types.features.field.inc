@@ -10,7 +10,7 @@
 function linuxdev_content_types_field_default_fields() {
   $fields = array();
 
-  // Exported field: 'comment-comment_node_blog_post-comment_body'
+  // Exported field: 'comment-comment_node_blog_post-comment_body'.
   $fields['comment-comment_node_blog_post-comment_body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -33,6 +33,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -71,7 +72,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'comment-comment_node_book-comment_body'
+  // Exported field: 'comment-comment_node_book-comment_body'.
   $fields['comment-comment_node_book-comment_body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -94,6 +95,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -132,7 +134,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'comment-comment_node_movie-comment_body'
+  // Exported field: 'comment-comment_node_movie-comment_body'.
   $fields['comment-comment_node_movie-comment_body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -155,6 +157,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -193,7 +196,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'comment-comment_node_page-comment_body'
+  // Exported field: 'comment-comment_node_page-comment_body'.
   $fields['comment-comment_node_page-comment_body'] = array(
     'field_config' => array(
       'active' => '1',
@@ -216,6 +219,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -254,7 +258,100 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-blog_post-field_blog_tags'
+  // Exported field: 'node-blog_post-field_blog_files'.
+  $fields['node-blog_post-field_blog_files'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_blog_files',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'locked' => '0',
+      'module' => 'file',
+      'settings' => array(
+        'display_default' => 0,
+        'display_field' => 0,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'file',
+    ),
+    'field_instance' => array(
+      'bundle' => 'blog_post',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_default',
+          'weight' => '2',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'module' => 'file',
+          'settings' => array(),
+          'type' => 'file_default',
+          'weight' => '1',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_blog_files',
+      'label' => 'Files',
+      'required' => 0,
+      'settings' => array(
+        'description_field' => 0,
+        'file_directory' => 'blog_files',
+        'file_extensions' => 'txt patch ini conf php tar.gz tar.bz2 gz bz2',
+        'max_filesize' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'file',
+        'settings' => array(
+          'insert' => 0,
+          'insert_class' => '',
+          'insert_default' => 'auto',
+          'insert_styles' => array(
+            'auto' => 0,
+            'image' => 0,
+            'image_large' => 0,
+            'image_medium' => 0,
+            'image_square_thumbnail' => 0,
+            'image_thumbnail' => 0,
+            'link' => 'link',
+          ),
+          'insert_width' => '',
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'file_generic',
+        'weight' => '4',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-blog_post-field_blog_tags'.
   $fields['node-blog_post-field_blog_tags'] = array(
     'field_config' => array(
       'active' => '1',
@@ -275,6 +372,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
@@ -305,7 +403,7 @@ function linuxdev_content_types_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '1',
+          'weight' => '3',
         ),
         'teaser' => array(
           'label' => 'inline',
@@ -330,12 +428,12 @@ function linuxdev_content_types_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'taxonomy_autocomplete',
-        'weight' => '4',
+        'weight' => '6',
       ),
     ),
   );
 
-  // Exported field: 'node-blog_post-field_content'
+  // Exported field: 'node-blog_post-field_content'.
   $fields['node-blog_post-field_content'] = array(
     'field_config' => array(
       'active' => '1',
@@ -356,6 +454,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '1',
@@ -408,7 +507,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-blog_post-field_images'
+  // Exported field: 'node-blog_post-field_images'.
   $fields['node-blog_post-field_images'] = array(
     'field_config' => array(
       'active' => '1',
@@ -429,6 +528,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
@@ -446,13 +546,13 @@ function linuxdev_content_types_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '1',
+          'weight' => '5',
         ),
         'full' => array(
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '3',
+          'weight' => '5',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -467,6 +567,7 @@ function linuxdev_content_types_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'alt_field' => 0,
+        'default_image' => 0,
         'file_directory' => 'blog_images',
         'file_extensions' => 'png jpg jpeg',
         'max_filesize' => '',
@@ -500,7 +601,97 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-blog_post-field_teaser'
+  // Exported field: 'node-blog_post-field_references'.
+  $fields['node-blog_post-field_references'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_references',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'link',
+      'settings' => array(
+        'attributes' => array(
+          'class' => '',
+          'rel' => '',
+          'target' => 'default',
+        ),
+        'display' => array(
+          'url_cutoff' => 80,
+        ),
+        'enable_tokens' => 1,
+        'title' => 'optional',
+        'title_maxlength' => 128,
+        'title_value' => '',
+        'url' => 0,
+      ),
+      'translatable' => '0',
+      'type' => 'link_field',
+    ),
+    'field_instance' => array(
+      'bundle' => 'blog_post',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '4',
+        ),
+        'full' => array(
+          'label' => 'above',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => '2',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_references',
+      'label' => 'References',
+      'required' => 0,
+      'settings' => array(
+        'attributes' => array(
+          'class' => '',
+          'configurable_title' => 0,
+          'rel' => 'external',
+          'target' => 'default',
+          'title' => '',
+        ),
+        'display' => array(
+          'url_cutoff' => '80',
+        ),
+        'enable_tokens' => 1,
+        'title' => 'required',
+        'title_maxlength' => '255',
+        'title_value' => '',
+        'url' => 0,
+        'user_register_form' => FALSE,
+        'validate_url' => 1,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_field',
+        'weight' => '5',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-blog_post-field_teaser'.
   $fields['node-blog_post-field_teaser'] = array(
     'field_config' => array(
       'active' => '1',
@@ -521,6 +712,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '1',
@@ -537,13 +729,13 @@ function linuxdev_content_types_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '2',
+          'weight' => '1',
         ),
         'full' => array(
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '2',
+          'weight' => '4',
         ),
         'teaser' => array(
           'label' => 'hidden',
@@ -573,7 +765,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-book-field_book_files'
+  // Exported field: 'node-book-field_book_files'.
   $fields['node-book-field_book_files'] = array(
     'field_config' => array(
       'active' => '1',
@@ -594,6 +786,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'file',
       'settings' => array(
         'display_default' => 0,
@@ -657,7 +850,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-book-field_content'
+  // Exported field: 'node-book-field_content'.
   $fields['node-book-field_content'] = array(
     'field_config' => array(
       'active' => '1',
@@ -678,6 +871,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '1',
@@ -723,7 +917,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-book-field_images'
+  // Exported field: 'node-book-field_images'.
   $fields['node-book-field_images'] = array(
     'field_config' => array(
       'active' => '1',
@@ -744,6 +938,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
@@ -776,6 +971,7 @@ function linuxdev_content_types_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'alt_field' => 1,
+        'default_image' => 0,
         'file_directory' => 'book_images',
         'file_extensions' => 'png jpg jpeg',
         'max_filesize' => '',
@@ -809,7 +1005,90 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-book-field_teaser'
+  // Exported field: 'node-book-field_references'.
+  $fields['node-book-field_references'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '-1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_references',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'locked' => '0',
+      'module' => 'link',
+      'settings' => array(
+        'attributes' => array(
+          'class' => '',
+          'rel' => '',
+          'target' => 'default',
+        ),
+        'display' => array(
+          'url_cutoff' => 80,
+        ),
+        'enable_tokens' => 1,
+        'title' => 'optional',
+        'title_maxlength' => 128,
+        'title_value' => '',
+        'url' => 0,
+      ),
+      'translatable' => '0',
+      'type' => 'link_field',
+    ),
+    'field_instance' => array(
+      'bundle' => 'book',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'module' => 'link',
+          'settings' => array(),
+          'type' => 'link_default',
+          'weight' => 4,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_references',
+      'label' => 'References',
+      'required' => 0,
+      'settings' => array(
+        'attributes' => array(
+          'class' => '',
+          'configurable_title' => 0,
+          'rel' => 'external',
+          'target' => 'default',
+          'title' => '',
+        ),
+        'display' => array(
+          'url_cutoff' => '80',
+        ),
+        'enable_tokens' => 1,
+        'title' => 'required',
+        'title_maxlength' => '255',
+        'title_value' => '',
+        'url' => 0,
+        'user_register_form' => FALSE,
+        'validate_url' => 1,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'link',
+        'settings' => array(),
+        'type' => 'link_field',
+        'weight' => '5',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-book-field_teaser'.
   $fields['node-book-field_teaser'] = array(
     'field_config' => array(
       'active' => '1',
@@ -830,6 +1109,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '1',
@@ -875,7 +1155,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-movie-field_actors'
+  // Exported field: 'node-movie-field_actors'.
   $fields['node-movie-field_actors'] = array(
     'field_config' => array(
       'active' => '1',
@@ -896,6 +1176,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
@@ -948,7 +1229,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-movie-field_directors'
+  // Exported field: 'node-movie-field_directors'.
   $fields['node-movie-field_directors'] = array(
     'field_config' => array(
       'active' => '1',
@@ -969,6 +1250,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
@@ -1021,7 +1303,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-movie-field_genre'
+  // Exported field: 'node-movie-field_genre'.
   $fields['node-movie-field_genre'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1042,6 +1324,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
@@ -1094,7 +1377,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-movie-field_imdb_id'
+  // Exported field: 'node-movie-field_imdb_id'.
   $fields['node-movie-field_imdb_id'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1115,6 +1398,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => '255',
@@ -1161,7 +1445,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-movie-field_media'
+  // Exported field: 'node-movie-field_media'.
   $fields['node-movie-field_media'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1182,6 +1466,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
@@ -1235,7 +1520,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-movie-field_plot'
+  // Exported field: 'node-movie-field_plot'.
   $fields['node-movie-field_plot'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1256,6 +1541,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '0',
@@ -1301,7 +1587,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-movie-field_poster'
+  // Exported field: 'node-movie-field_poster'.
   $fields['node-movie-field_poster'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1322,6 +1608,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => '1024',
@@ -1369,7 +1656,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-movie-field_rating'
+  // Exported field: 'node-movie-field_rating'.
   $fields['node-movie-field_rating'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1379,6 +1666,7 @@ function linuxdev_content_types_field_default_fields() {
       'field_name' => 'field_rating',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'number',
       'settings' => array(
         'decimal_separator' => '.',
@@ -1432,7 +1720,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-movie-field_reated'
+  // Exported field: 'node-movie-field_reated'.
   $fields['node-movie-field_reated'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1453,6 +1741,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => '255',
@@ -1500,7 +1789,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-movie-field_released'
+  // Exported field: 'node-movie-field_released'.
   $fields['node-movie-field_released'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1510,6 +1799,7 @@ function linuxdev_content_types_field_default_fields() {
       'field_name' => 'field_released',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'date',
       'settings' => array(
         'granularity' => array(
@@ -1568,6 +1858,7 @@ function linuxdev_content_types_field_default_fields() {
         'active' => 1,
         'module' => 'date',
         'settings' => array(
+          'display_all_day' => 0,
           'increment' => 1,
           'input_format' => 'j M Y - H:i:s',
           'input_format_custom' => 'd M Y',
@@ -1582,7 +1873,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-movie-field_runtime'
+  // Exported field: 'node-movie-field_runtime'.
   $fields['node-movie-field_runtime'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1603,6 +1894,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(
         'max_length' => '255',
@@ -1650,7 +1942,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-movie-field_type'
+  // Exported field: 'node-movie-field_type'.
   $fields['node-movie-field_type'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1671,6 +1963,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
@@ -1723,7 +2016,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-movie-field_votes'
+  // Exported field: 'node-movie-field_votes'.
   $fields['node-movie-field_votes'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1733,6 +2026,7 @@ function linuxdev_content_types_field_default_fields() {
       'field_name' => 'field_votes',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'number',
       'settings' => array(),
       'translatable' => '0',
@@ -1784,7 +2078,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-movie-field_writers'
+  // Exported field: 'node-movie-field_writers'.
   $fields['node-movie-field_writers'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1805,6 +2099,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'tid',
         ),
       ),
+      'locked' => '0',
       'module' => 'taxonomy',
       'settings' => array(
         'allowed_values' => array(
@@ -1857,7 +2152,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-movie-field_year'
+  // Exported field: 'node-movie-field_year'.
   $fields['node-movie-field_year'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1867,6 +2162,7 @@ function linuxdev_content_types_field_default_fields() {
       'field_name' => 'field_year',
       'foreign keys' => array(),
       'indexes' => array(),
+      'locked' => '0',
       'module' => 'date',
       'settings' => array(
         'granularity' => array(
@@ -1922,6 +2218,7 @@ function linuxdev_content_types_field_default_fields() {
         'active' => 1,
         'module' => 'date',
         'settings' => array(
+          'display_all_day' => 0,
           'increment' => 1,
           'input_format' => 'm/d/Y - H:i:s',
           'input_format_custom' => '',
@@ -1936,7 +2233,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-page-field_content'
+  // Exported field: 'node-page-field_content'.
   $fields['node-page-field_content'] = array(
     'field_config' => array(
       'active' => '1',
@@ -1957,6 +2254,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'format',
         ),
       ),
+      'locked' => '0',
       'module' => 'text',
       'settings' => array(),
       'translatable' => '1',
@@ -2009,7 +2307,7 @@ function linuxdev_content_types_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-page-field_images'
+  // Exported field: 'node-page-field_images'.
   $fields['node-page-field_images'] = array(
     'field_config' => array(
       'active' => '1',
@@ -2030,6 +2328,7 @@ function linuxdev_content_types_field_default_fields() {
           0 => 'fid',
         ),
       ),
+      'locked' => '0',
       'module' => 'image',
       'settings' => array(
         'default_image' => 0,
@@ -2068,6 +2367,7 @@ function linuxdev_content_types_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'alt_field' => 0,
+        'default_image' => 0,
         'file_directory' => 'content_images',
         'file_extensions' => 'png jpg jpeg',
         'max_filesize' => '',
@@ -2116,6 +2416,7 @@ function linuxdev_content_types_field_default_fields() {
   t('Poster');
   t('Rated');
   t('Rating');
+  t('References');
   t('Released');
   t('Runtime');
   t('Tags');
