@@ -49,10 +49,13 @@ html {
       font-size: 160%;
       margin: 16px 0 4px 0;
     }
-    h2 {
+    h2, h3 {
       color: $headline_color;
       margin: 16px 0 0 0;
       font-size: 120%;
+    }
+    h3 {
+      font-size: 105%;
     }
     h2.block-title {
       font-size: 140%;
@@ -98,6 +101,20 @@ html {
       .field-item {
         float: left;
         margin-right: 0.5em;
+      }
+    }
+    .field-references {
+      clear: both;
+    }
+    .field-blog-files {
+      clear: both;
+      padding: 8px 0 8px 1.2em;;
+    }
+    .field-blog-tags {
+      padding-left: 10px;
+      li {
+       padding: 0;
+       margin: 0;
       }
     }
     .field-type-taxonomy-term-reference .field-item {

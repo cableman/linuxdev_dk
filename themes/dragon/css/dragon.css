@@ -14,12 +14,12 @@ time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 100%;
   font: inherit;
+  font-size: 100%;
   vertical-align: baseline;
 }
 
-body {
+html {
   line-height: 1;
 }
 
@@ -119,10 +119,13 @@ html {
   font-size: 160%;
   margin: 16px 0 4px 0;
 }
-.zone-content .region-content h2 {
+.zone-content .region-content h2, .zone-content .region-content h3 {
   color: #0062a0;
   margin: 16px 0 0 0;
   font-size: 120%;
+}
+.zone-content .region-content h3 {
+  font-size: 105%;
 }
 .zone-content .region-content h2.block-title {
   font-size: 140%;
@@ -164,6 +167,20 @@ html {
 .zone-content .region-content .field-name-field-references .field-item {
   float: left;
   margin-right: 0.5em;
+}
+.zone-content .region-content .field-references {
+  clear: both;
+}
+.zone-content .region-content .field-blog-files {
+  clear: both;
+  padding: 8px 0 8px 1.2em;
+}
+.zone-content .region-content .field-blog-tags {
+  padding-left: 10px;
+}
+.zone-content .region-content .field-blog-tags li {
+  padding: 0;
+  margin: 0;
 }
 .zone-content .region-content .field-type-taxonomy-term-reference .field-item {
   margin-right: 0.5em;
