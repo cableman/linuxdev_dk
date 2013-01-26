@@ -54,17 +54,41 @@ function linuxdev_content_types_field_default_fields() {
         ),
       ),
       'entity_type' => 'comment',
+      'fences_wrapper' => 'div',
       'field_name' => 'comment_body',
       'label' => 'Comment',
-      'required' => TRUE,
+      'required' => 1,
       'settings' => array(
-        'text_processing' => 1,
+        'better_formats' => array(
+          'allowed_formats' => array(
+            'filtered_html' => 'filtered_html',
+            'full_html' => 'full_html',
+            'plain_text' => 'plain_text',
+          ),
+          'allowed_formats_toggle' => 0,
+          'default_order_toggle' => 0,
+          'default_order_wrapper' => array(
+            'formats' => array(
+              'filtered_html' => array(
+                'weight' => '-9',
+              ),
+              'full_html' => array(
+                'weight' => '-8',
+              ),
+              'plain_text' => array(
+                'weight' => '-7',
+              ),
+            ),
+          ),
+        ),
+        'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
+        'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => 5,
+          'rows' => '5',
         ),
         'type' => 'text_textarea',
         'weight' => 0,
@@ -323,7 +347,7 @@ function linuxdev_content_types_field_default_fields() {
       'settings' => array(
         'description_field' => 0,
         'file_directory' => 'blog_files',
-        'file_extensions' => 'txt patch ini conf php tar.gz tar.bz2 gz bz2',
+        'file_extensions' => 'txt patch ini conf php tar.gz tar.bz2 gz bz2 tar',
         'max_filesize' => '',
         'user_register_form' => FALSE,
       ),
@@ -332,6 +356,7 @@ function linuxdev_content_types_field_default_fields() {
         'module' => 'file',
         'settings' => array(
           'insert' => 0,
+          'insert_absolute' => FALSE,
           'insert_class' => '',
           'insert_default' => 'auto',
           'insert_styles' => array(
@@ -415,6 +440,7 @@ function linuxdev_content_types_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
+      'fences_wrapper' => 'ul',
       'field_name' => 'field_blog_tags',
       'label' => 'Tags',
       'required' => 1,
@@ -583,6 +609,7 @@ function linuxdev_content_types_field_default_fields() {
         'module' => 'image',
         'settings' => array(
           'insert' => 1,
+          'insert_absolute' => FALSE,
           'insert_class' => '',
           'insert_default' => 'auto',
           'insert_styles' => array(
@@ -818,6 +845,7 @@ function linuxdev_content_types_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
+      'fences_wrapper' => 'ul',
       'field_name' => 'field_book_files',
       'label' => 'Files',
       'required' => 0,
@@ -833,6 +861,7 @@ function linuxdev_content_types_field_default_fields() {
         'module' => 'file',
         'settings' => array(
           'insert' => 0,
+          'insert_absolute' => FALSE,
           'insert_class' => '',
           'insert_default' => 'link',
           'insert_styles' => array(
@@ -901,6 +930,7 @@ function linuxdev_content_types_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
+      'fences_wrapper' => 'p',
       'field_name' => 'field_content',
       'label' => 'Content',
       'required' => 1,
@@ -988,6 +1018,7 @@ function linuxdev_content_types_field_default_fields() {
         'module' => 'image',
         'settings' => array(
           'insert' => 1,
+          'insert_absolute' => FALSE,
           'insert_class' => '',
           'insert_default' => 'auto',
           'insert_styles' => array(
@@ -1059,6 +1090,7 @@ function linuxdev_content_types_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
+      'fences_wrapper' => 'ul',
       'field_name' => 'field_references',
       'label' => 'References',
       'required' => 0,
@@ -1139,6 +1171,7 @@ function linuxdev_content_types_field_default_fields() {
         ),
       ),
       'entity_type' => 'node',
+      'fences_wrapper' => 'p',
       'field_name' => 'field_teaser',
       'label' => 'Teaser',
       'required' => 1,
@@ -2384,6 +2417,7 @@ function linuxdev_content_types_field_default_fields() {
         'module' => 'image',
         'settings' => array(
           'insert' => 1,
+          'insert_absolute' => FALSE,
           'insert_class' => '',
           'insert_default' => 'auto',
           'insert_styles' => array(
