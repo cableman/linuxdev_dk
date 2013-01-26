@@ -51,7 +51,10 @@
  *     - file: The filename to parse for the version, relative to the library
  *       path. For example: 'docs/changelog.txt'.
  *     - pattern: A string containing a regular expression (PCRE) to match the
- *       library version. For example: '@version\s+([0-9a-zA-Z\.-]+)@'.
+ *       library version. For example: '@version\s+([0-9a-zA-Z\.-]+)@'. Note
+ *       that the returned version is not the match of the entire pattern (i.e.
+ *       '@version 1.2.3' in the above example) but the match of the first
+ *       sub-pattern (i.e. '1.2.3' in the above example).
  *     - lines: (optional) The maximum number of lines to search the pattern in.
  *       Defaults to 20.
  *     - cols: (optional) The maximum number of characters per line to take into
