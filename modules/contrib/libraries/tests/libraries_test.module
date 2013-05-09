@@ -542,7 +542,7 @@ function _libraries_test_load($library, $variant = NULL) {
   $files = get_included_files();
   foreach ($files as $file) {
     if (strpos($file, 'libraries/test') && !strpos($file, 'libraries_test.module')) {
-      $output .= '<li>' . strstr($file, 'libraries/test') . '</li>';
+      $output .= '<li>' . str_replace(DRUPAL_ROOT . '/', '', $file) . '</li>';
     }
   }
   $output .= '</ul>';

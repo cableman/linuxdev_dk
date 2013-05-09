@@ -1,0 +1,159 @@
+@import "compass/reset";
+@import "compass/css3";
+@import "compass/utilities";
+@import "mixins.scss";
+@import "typography.scss";
+
+$bg_header_color: #FFF;
+$bg_color: #EEE;
+$header_color_light: #000;
+$border_color: #BBB;
+$headline_color: #0062A0;
+$table_color: #000;
+$table_color_row: #EEE;
+
+html {
+  background: #fff url('../images/bg_light.jpg') no-repeat top right;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.zone-branding {
+  background-color: $bg_header_color;
+  @include single-box-shadow($header_color_light, 0px, 8px, 0px);
+  margin-bottom: 8px;
+  height: 90px;
+}
+
+.block-menu {
+  ul {
+   margin-left: 16px;
+  }
+}
+
+.zone-content {
+  @include rgba-background($bg_color, .90);
+  padding: 16px 0;
+  .region-content-inner {
+    border-left: 1px solid $border_color;
+    padding: 16px;
+  }
+  .region-content {
+    #page-title {
+      font-size: 200%;
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+    h1 {
+      color: $headline_color;
+      font-size: 160%;
+      margin: 16px 0 4px 0;
+    }
+    h2, h3 {
+      color: $headline_color;
+      margin: 16px 0 0 0;
+      font-size: 120%;
+    }
+    h3 {
+      font-size: 105%;
+    }
+    h2.block-title {
+      font-size: 140%;
+      margin: 0;
+      a {
+        &:link,
+        &:visited,
+        &:hover,
+        &:active {
+          text-decoration: none;
+        }
+      }
+    }
+    em {
+      font-style: italic;
+    }
+    p {
+      margin-bottom: 12px;
+    }
+    .timestamp, .tags {
+      font-size: 80%;
+      font-style: italic;
+    }
+    .tags {
+      margin-bottom: 24px;
+    }
+    .geshifilter {
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+    ul {
+      list-style: disc;
+    }
+    .field-label {
+      font-weight: normal;
+      float: left;
+    }
+    .field-name-field-references {
+      clear: both;
+      float: left;
+      margin-bottom: 4px;
+      width: 100%;
+      .field-item {
+        float: left;
+        margin-right: 0.5em;
+      }
+    }
+    .field-references {
+      clear: both;
+    }
+    .field-blog-files {
+      clear: both;
+      padding: 8px 0 8px 1.2em;;
+    }
+    .field-blog-tags {
+      padding-left: 10px;
+      li {
+       padding: 0;
+       margin: 0;
+      }
+    }
+    .field-type-taxonomy-term-reference .field-item {
+      margin-right: 0.5em;
+    }
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    th {
+      @include rgba-background($table_color, .50);
+      padding-right: 1em;
+      text-align: left;
+      color: #FFF;
+    }
+    tbody {
+      tr {
+       background-color: $table_color_row;
+      }
+    }
+    td, th {
+      padding: 0.2em 0.5em;
+      border: 1px solid $border_color;
+    }
+  }
+  .node-links {
+    margin: 16px 0;
+  }
+}
+
+.section-footer {
+  .zone-footer {
+    min-height: 40px;
+    background-color: $bg_header_color;
+    @include single-box-shadow($header_color_light, 0px, -8px, 0px);
+    text-align: center;
+    #block-system-powered-by {
+      position: relative;
+      top: 10px;
+    }
+  }
+}

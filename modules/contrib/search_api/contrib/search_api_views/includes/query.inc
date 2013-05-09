@@ -214,8 +214,10 @@ class SearchApiViewsQuery extends views_plugin_query {
    */
   public function execute(&$view) {
     if ($this->errors) {
-      foreach ($this->errors as $msg) {
-        drupal_set_message($msg, 'error');
+      if (error_displayable()) {
+        foreach ($this->errors as $msg) {
+          drupal_set_message(check_plain($msg), 'error');
+        }
       }
       $view->result = array();
       $view->total_rows = 0;
@@ -237,6 +239,9 @@ class SearchApiViewsQuery extends views_plugin_query {
 
       // Store the results.
       $this->pager->total_items = $view->total_rows = $results['result count'];
+      if (!empty($this->pager->options['offset'])) {
+        $this->pager->total_items -= $this->pager->options['offset'];
+      }
       $this->pager->update_page_info();
       $view->result = array();
       if (!empty($results['results'])) {
@@ -297,7 +302,7 @@ class SearchApiViewsQuery extends views_plugin_query {
       }
 
       // Save the row values for adding them to the Views result afterwards.
-      $rows[$id] = $row;
+      $rows[$id] = (object) $row;
     }
 
     // Load items of those rows which haven't got all field values, yet.
@@ -308,15 +313,13 @@ class SearchApiViewsQuery extends views_plugin_query {
       foreach ($items as $id => $item) {
         // Extract item properties.
         $wrapper = $this->index->entityWrapper($item, FALSE);
-        $rows[$id]['_entity_properties'] += $this->extractFields($wrapper, $missing[$id]);
-        $rows[$id]['entity'] = $item;
+        $rows[$id]->_entity_properties += $this->extractFields($wrapper, $missing[$id]);
+        $rows[$id]->entity = $item;
       }
     }
 
     // Finally, add all rows to the Views result set.
-    foreach ($rows as $id => $row) {
-      $view->result[$id] = (object) $row;
-    }
+    $view->result = array_values($rows);
   }
 
   /**

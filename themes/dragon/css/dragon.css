@@ -1,0 +1,222 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+html {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+@font-face {
+  font-family: "PTSansRegular";
+  src: url('fonts/ptSans/PTS55F-webfont.eot');
+  src: url('fonts/ptSans/PTS55F-webfont.eot?#iefix') format('eot'), url('fonts/ptSans/PTS55F-webfont.woff') format('woff'), url('fonts/ptSans/PTS55F-webfont.ttf') format('truetype'), url('fonts/ptSans/PTS55F-webfont.svg') format('svg');
+  font-weight: "normal";
+  font-style: "normal";
+}
+
+@font-face {
+  font-family: "mgOpenModerna";
+  src: url('fonts/mgOpenModerna/mgopenmodernabold-webfont.eot');
+  src: url('fonts/mgOpenModerna/mgopenmodernabold-webfont.eot?#iefix') format('eot'), url('fonts/mgOpenModerna/mgopenmodernabold-webfont.woff') format('woff'), url('fonts/mgOpenModerna/mgopenmodernabold-webfont.ttf') format('truetype'), url('fonts/mgOpenModerna/mgopenmodernabold-webfont.svg') format('svg');
+  font-weight: "bold";
+  font-style: "bold";
+}
+
+body {
+  font-family: mgOpenModerna, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 130%;
+}
+body h1, body h2, body h3, body h4, body h5 {
+  font-family: PTSansRegular, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: 0.001em;
+}
+
+html {
+  background: white url("../images/bg_light.jpg") no-repeat top right;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.zone-branding {
+  background-color: white;
+  -webkit-box-shadow: 0px 8px 0px black;
+  -moz-box-shadow: 0px 8px 0px black;
+  box-shadow: 0px 8px 0px black;
+  margin-bottom: 8px;
+  height: 90px;
+}
+
+.block-menu ul {
+  margin-left: 16px;
+}
+
+.zone-content {
+  background-color: rgba(238, 238, 238, 0.9);
+  zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#E6EEEEEE,endColorstr=#E6EEEEEE);
+  padding: 16px 0;
+}
+.zone-content .region-content-inner {
+  border-left: 1px solid #bbbbbb;
+  padding: 16px;
+}
+.zone-content .region-content #page-title {
+  font-size: 200%;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+.zone-content .region-content h1 {
+  color: #0062a0;
+  font-size: 160%;
+  margin: 16px 0 4px 0;
+}
+.zone-content .region-content h2, .zone-content .region-content h3 {
+  color: #0062a0;
+  margin: 16px 0 0 0;
+  font-size: 120%;
+}
+.zone-content .region-content h3 {
+  font-size: 105%;
+}
+.zone-content .region-content h2.block-title {
+  font-size: 140%;
+  margin: 0;
+}
+.zone-content .region-content h2.block-title a:link, .zone-content .region-content h2.block-title a:visited, .zone-content .region-content h2.block-title a:hover, .zone-content .region-content h2.block-title a:active {
+  text-decoration: none;
+}
+.zone-content .region-content em {
+  font-style: italic;
+}
+.zone-content .region-content p {
+  margin-bottom: 12px;
+}
+.zone-content .region-content .timestamp, .zone-content .region-content .tags {
+  font-size: 80%;
+  font-style: italic;
+}
+.zone-content .region-content .tags {
+  margin-bottom: 24px;
+}
+.zone-content .region-content .geshifilter {
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+.zone-content .region-content ul {
+  list-style: disc;
+}
+.zone-content .region-content .field-label {
+  font-weight: normal;
+  float: left;
+}
+.zone-content .region-content .field-name-field-references {
+  clear: both;
+  float: left;
+  margin-bottom: 4px;
+  width: 100%;
+}
+.zone-content .region-content .field-name-field-references .field-item {
+  float: left;
+  margin-right: 0.5em;
+}
+.zone-content .region-content .field-references {
+  clear: both;
+}
+.zone-content .region-content .field-blog-files {
+  clear: both;
+  padding: 8px 0 8px 1.2em;
+}
+.zone-content .region-content .field-blog-tags {
+  padding-left: 10px;
+}
+.zone-content .region-content .field-blog-tags li {
+  padding: 0;
+  margin: 0;
+}
+.zone-content .region-content .field-type-taxonomy-term-reference .field-item {
+  margin-right: 0.5em;
+}
+.zone-content table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.zone-content table th {
+  background-color: rgba(0, 0, 0, 0.5);
+  zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000,endColorstr=#80000000);
+  padding-right: 1em;
+  text-align: left;
+  color: #FFF;
+}
+.zone-content table tbody tr {
+  background-color: #eeeeee;
+}
+.zone-content table td, .zone-content table th {
+  padding: 0.2em 0.5em;
+  border: 1px solid #bbbbbb;
+}
+.zone-content .node-links {
+  margin: 16px 0;
+}
+
+.section-footer .zone-footer {
+  min-height: 40px;
+  background-color: white;
+  -webkit-box-shadow: 0px -8px 0px black;
+  -moz-box-shadow: 0px -8px 0px black;
+  box-shadow: 0px -8px 0px black;
+  text-align: center;
+}
+.section-footer .zone-footer #block-system-powered-by {
+  position: relative;
+  top: 10px;
+}

@@ -213,7 +213,7 @@ class SearchApiDbService extends SearchApiAbstractService {
         return array('type' => 'int', 'size' => 'tiny');
 
       default:
-        throw new SearchApiException(t('Unknown field type !type. Database search module might be out of sync with Search API.', array('!type' => $type)));
+        throw new SearchApiException(t('Unknown field type @type. Database search module might be out of sync with Search API.', array('@type' => $type)));
     }
   }
 
@@ -303,7 +303,7 @@ class SearchApiDbService extends SearchApiAbstractService {
 
   public function indexItems(SearchApiIndex $index, array $items) {
     if (empty($this->options['indexes'][$index->machine_name])) {
-      throw new SearchApiException(t('No field settings for index with id !id.', array('!id' => $index->machine_name)));
+      throw new SearchApiException(t('No field settings for index with id @id.', array('@id' => $index->machine_name)));
     }
     $indexed = array();
     $set = $this->setDb();
@@ -315,7 +315,7 @@ class SearchApiDbService extends SearchApiAbstractService {
       }
       catch (Exception $e) {
         // We just log the error, hoping we can index the other items.
-        watchdog('search api', $e->getMessage(), NULL, WATCHDOG_WARNING);
+        watchdog('search_api_db', check_plain($e->getMessage()), NULL, WATCHDOG_WARNING);
       }
     }
     if ($set) {
@@ -431,6 +431,9 @@ class SearchApiDbService extends SearchApiAbstractService {
       }
       return $ret;
     }
+    if (!isset($value)) {
+      return NULL;
+    }
     switch ($type) {
       case 'text':
         $ret = array();
@@ -515,7 +518,7 @@ class SearchApiDbService extends SearchApiAbstractService {
         return strtotime($value);
 
       default:
-        throw new SearchApiException(t('Unknown field type !type. Database search module might be out of sync with Search API.', array('!type' => $type)));
+        throw new SearchApiException(t('Unknown field type @type. Database search module might be out of sync with Search API.', array('@type' => $type)));
     }
   }
 
@@ -562,7 +565,7 @@ class SearchApiDbService extends SearchApiAbstractService {
     $set = $this->setDb();
     $index = $query->getIndex();
     if (empty($this->options['indexes'][$index->machine_name])) {
-      throw new SearchApiException(t('Unknown index !id.', array('!id' => $index->machine_name)));
+      throw new SearchApiException(t('Unknown index @id.', array('@id' => $index->machine_name)));
     }
     $fields = $this->options['indexes'][$index->machine_name];
 
@@ -576,10 +579,10 @@ class SearchApiDbService extends SearchApiAbstractService {
         $fulltext_fields = array();
         foreach ($_fulltext_fields as $name) {
           if (!isset($fields[$name])) {
-            throw new SearchApiException(t('Unknown field !field specified as search target.', array('!field' => $name)));
+            throw new SearchApiException(t('Unknown field @field specified as search target.', array('@field' => $name)));
           }
           if (!search_api_is_text_type($fields[$name]['type'])) {
-            throw new SearchApiException(t('Cannot perform fulltext search on field !field of type !type.', array('!field' => $name, '!type' => $fields[$name]['type'])));
+            throw new SearchApiException(t('Cannot perform fulltext search on field @field of type @type.', array('@field' => $name, '@type' => $fields[$name]['type'])));
           }
           $fulltext_fields[$name] = $fields[$name];
         }
@@ -591,7 +594,7 @@ class SearchApiDbService extends SearchApiAbstractService {
       }
       else {
         $msg = t('Search keys are given but no fulltext fields are defined.');
-        watchdog('search api', $msg, NULL, WATCHDOG_WARNING);
+        watchdog('search_api_db', $msg, NULL, WATCHDOG_WARNING);
         $this->warnings[$msg] = 1;
       }
     }
@@ -600,24 +603,21 @@ class SearchApiDbService extends SearchApiAbstractService {
       $this->warnings[$msg] = 1;
     }
 
+    if (!isset($db_query)) {
+      $db_query = db_select($fields['search_api_language']['table'], 't', $this->query_options);
+      $db_query->addField('t', 'item_id', 'item_id');
+      $db_query->addExpression(':score', 'score', array(':score' => 1));
+    }
+
     $filter = $query->getFilter();
     if ($filter->getFilters()) {
-      if (!isset($db_query)) {
-        $db_query = db_select($fields['search_api_language']['table'], 't', $this->query_options);
-        $db_query->addField('t', 'item_id', 'item_id');
-        $db_query->addExpression(':score', 'score', array(':score' => 1));
-      }
       $condition = $this->createFilterCondition($filter, $fields, $db_query);
       if ($condition) {
         $db_query->condition($condition);
       }
     }
 
-    if (!isset($db_query)) {
-      $db_query = db_select($fields['search_api_language']['table'], 't', $this->query_options);
-      $db_query->addField('t', 'item_id', 'item_id');
-      $db_query->addExpression(':score', 'score', array(':score' => 1));
-    }
+    $db_query->addTag('search_api_db_search');
 
     $time_processing_done = microtime(TRUE);
     $results = array();
@@ -640,7 +640,7 @@ class SearchApiDbService extends SearchApiAbstractService {
       if ($sort) {
         foreach ($sort as $field_name => $order) {
           if ($order != 'ASC' && $order != 'DESC') {
-            $msg = t('Unknown sort order !order. Assuming "ASC".', array('!order' => $order));
+            $msg = t('Unknown sort order @order. Assuming "ASC".', array('@order' => $order));
             $this->warnings[$msg] = $msg;
             $order = 'ASC';
           }
@@ -653,14 +653,14 @@ class SearchApiDbService extends SearchApiAbstractService {
             continue;
           }
           if (!isset($fields[$field_name])) {
-            throw new SearchApiException(t('Trying to sort on unknown field !field.', array('!field' => $field_name)));
+            throw new SearchApiException(t('Trying to sort on unknown field @field.', array('@field' => $field_name)));
           }
           $field = $fields[$field_name];
           if (search_api_is_list_type($field['type'])) {
-            throw new SearchApiException(t('Cannot sort on field !field of a list type.', array('!field' => $field_name)));
+            throw new SearchApiException(t('Cannot sort on field @field of a list type.', array('@field' => $field_name)));
           }
           if (search_api_is_text_type($field['type'])) {
-            throw new SearchApiException(t('Cannot sort on fulltext field !field.', array('!field' => $field_name)));
+            throw new SearchApiException(t('Cannot sort on fulltext field @field.', array('@field' => $field_name)));
           }
           $alias = $this->getTableAlias($field, $db_query);
           $db_query->orderBy($alias . '.value', $order);
@@ -1012,7 +1012,7 @@ class SearchApiDbService extends SearchApiAbstractService {
       else {
         $empty = FALSE;
         if (!isset($fields[$f[0]])) {
-          throw new SearchApiException(t('Unknown field in filter clause: !field.', array('!field' => $f[0])));
+          throw new SearchApiException(t('Unknown field in filter clause: @field.', array('@field' => $f[0])));
         }
         if ($f[1] === NULL) {
           $query = db_select($fields[$f[0]]['table'], 't')
@@ -1091,6 +1091,7 @@ class SearchApiDbService extends SearchApiAbstractService {
         continue;
       }
       $field = $fields[$facet['field']];
+      $missing_count = 0;
 
       $select = db_select($table, 't');
       $alias = $this->getTableAlias($field, $select, TRUE);
@@ -1100,23 +1101,32 @@ class SearchApiDbService extends SearchApiAbstractService {
       $select->orderBy('num', 'DESC');
 
       $limit = $facet['limit'];
-      if ($limit) {
+      if ((int) $limit > 0) {
         $select->range(0, $limit);
       }
       if ($facet['min_count'] > 1) {
         $select->having('num >= :count', array(':count' => $facet['min_count']));
       }
-      if ($facet['missing']) {
-        $inner_query = db_select($field['table'], 't1')
-          ->fields('t1', array('item_id'));
-        $missing_count = db_select($table, 't');
-        $missing_count->addExpression('COUNT(item_id)');
-        $missing_count->condition('item_id', $inner_query, 'NOT IN');
-        $missing_count = $missing_count->execute()->fetchField();
-        $missing_count = $missing_count >= $facet['min_count'] ? $missing_count : 0;
-      }
-      else {
-        $missing_count = 0;
+      if (((bool) $facet['missing']) === search_api_is_list_type($field['type'])) {
+        // For multi-valued fields, the "missing" facet is defined by the table
+        // not having any entries for those items. We therefore need to execute
+        // an additional query, counting the items which do not have any entries
+        // in the field table.
+        if ($facet['missing']) {
+          $inner_query = db_select($field['table'], 't1')
+            ->fields('t1', array('item_id'));
+          $missing_count = db_select($table, 't');
+          $missing_count->addExpression('COUNT(item_id)');
+          $missing_count->condition('item_id', $inner_query, 'NOT IN');
+          $missing_count = $missing_count->execute()->fetchField();
+          $missing_count = $missing_count >= $facet['min_count'] ? $missing_count : 0;
+        }
+        // For single-valued fields, there are explicit NULL values in the
+        // table for "missing" entries. Therefore, we have to exclude NULL
+        // values if we do not want a "missing" facet.
+        else {
+          $select->isNotNull('value');
+        }
       }
 
       $terms = array();
@@ -1133,7 +1143,7 @@ class SearchApiDbService extends SearchApiAbstractService {
         }
         $terms[] = array(
           'count' => $row->num,
-          'filter' => '"' . $row->value . '"',
+          'filter' => isset($row->value) ? '"' . $row->value . '"' : '!',
         );
       }
       if ($missing_count && (!$limit || count($terms) < $limit)) {

@@ -1,3 +1,9 @@
 .node div.geshifilter {
   font-size: 14px;
 }
+
+.content .field-type-text-long img {
+  background-color: #F8F8F8;
+  border: 1px solid #CCCCCC;
+  padding: 0.5em;
+}
