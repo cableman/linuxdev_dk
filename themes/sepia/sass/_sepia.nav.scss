@@ -1,0 +1,113 @@
+// **
+// Topbar menu
+// **
+nav {
+  text-align: center;
+  height: 10em;
+  
+  .main-menu {
+    margin: auto;
+    width: 100%;
+  }
+  
+  ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    
+    li {
+      display: inline-block;
+      float: none;
+      margin-left: 1em;
+      margin-right: 1em;
+      width: auto;
+      
+      a {
+        @include rem('font-size', 18px);
+        color: $black;
+        display: inline-block;
+        margin-left: -4px;
+        padding: 30px 25px 8px;
+        outline: 0;
+        transition: background 0.5s ease 0s;
+        text-transform: uppercase;
+        text-decoration: none;
+
+        
+        &.active {
+          background-color: $theme-teritary-color;
+          color: $theme-primary-color;
+          
+          &:hover {
+            background-color: $theme-teritary-color;
+          }
+        }
+        
+        &:hover {
+           background-color: $theme-secondary-color;
+        }
+      }
+    }
+  }
+  
+  .topbar-menu {
+    display: none;
+    float: right;
+    
+    @include small-medium() {
+      display: inline-block;
+      
+      .border {
+        display: none;
+      }
+      
+      margin-top: 0;
+      padding: 0;
+
+      i[class^="icon-"] {
+        margin-right: 0;
+      }
+
+      .menu-item {
+        @include rem('font-size', 18px);
+        @include text-shadow(1px 1px 0 rgba(0, 0, 0, .5));
+        @extend %font-bold;
+
+        color: $white;
+        display: inline-block;
+        margin-left: -4px;
+        padding: 10px 15px;
+        outline: 0;
+
+        &:hover {
+          background-color: lighten($theme-primary-color, 10%);
+
+          color: $white;
+          text-decoration: none;
+        }
+
+        &.active {
+          color: $white;
+          text-decoration: none;
+          background-color: $theme-primary-color;
+        }
+      }
+    }
+  }
+  
+  @include small-medium () {
+    .border {
+      display: none;
+    }
+  }
+  .border {
+    background: none repeat scroll 0 0 $theme-teritary-color;
+    height: 0.8em;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+  }
+}

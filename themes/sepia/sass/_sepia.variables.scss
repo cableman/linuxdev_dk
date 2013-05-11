@@ -1,0 +1,102 @@
+// =============================================================================
+// This file holds all the variables for the DDBasic theme
+// =============================================================================
+//
+
+
+// -----------------------------------------------------------------------------
+// Basic settings
+// -----------------------------------------------------------------------------
+//
+$default-spacing:                 20px;
+
+/*$box-sizing-polyfill-path:        "/profiles/ding2/themes/ddbasic/scripts/boxsizing.htc";*/
+
+
+// -----------------------------------------------------------------------------
+// Standard color definitions
+// -----------------------------------------------------------------------------
+//
+$white:                 #fff    !default;
+$black:                 #000    !default;
+$brown:                 #380300 !default;
+$brown_light:           #9C4A02 !default;
+
+// -----------------------------------------------------------------------------
+// Theme color definitions
+// -----------------------------------------------------------------------------
+//
+$theme-primary-color:             #F7DEC6;
+$theme-secondary-color:           #EDB884;
+$theme-teritary-color:            #E18634;
+
+
+// -----------------------------------------------------------------------------
+// Font library
+// -----------------------------------------------------------------------------
+//
+$theme-icon-library-font:         FontAwesome;
+
+
+// -----------------------------------------------------------------------------
+// Typography
+// -----------------------------------------------------------------------------
+//
+$font-color-primary:              transparentize($black, .2);
+
+
+// -----------------------------------------------------------------------------
+// Font variables
+// -----------------------------------------------------------------------------
+//
+$theme-font-size:                 16px;
+$theme-line-height:               24px;
+$theme-font-family:               "Helvetica Neue", Helvetica, "Lucida Sans Unicode", Arial, sans-serif;
+$theme-font-weight-normal:        normal;
+$theme-font-weight-bold:          normal;
+$theme-font-selection-color:      $font-color-primary;
+$theme-font-selection-background: $brown_light;
+
+
+// -----------------------------------------------------------------------------
+// Base font size for rem() mixin, measured in pixels
+// -----------------------------------------------------------------------------
+//
+$base-font-size:  16px;
+
+
+/*// -----------------------------------------------------------------------------
+// Text colors
+// -----------------------------------------------------------------------------
+//
+$text-primary-color:         #4c4c4c;
+$text-selection-color:       #333;
+$text-selection-background:  #ffff99;
+
+
+// -----------------------------------------------------------------------------
+// Links
+// -----------------------------------------------------------------------------
+//
+$link-color:                      #00b7e7;
+$link-color-hover:                darken($link-color, 20%);
+
+
+// -----------------------------------------------------------------------------
+// Articles
+// -----------------------------------------------------------------------------
+//
+$article-background:              #ebebeb;
+$article-background-odd:          #e8e8e8;
+$article-background-even:         #f2f2f2;
+$article-text:                    #4c4c4c;
+
+
+// -----------------------------------------------------------------------------
+// Navigation
+// -----------------------------------------------------------------------------
+//
+$navbar-bg-color:                 transparentize($white, .95);
+$navbar-bg-active-color:          transparentize($white, .95);
+$navbar-text-color:               lighten($black, 30%);
+$navbar-text-color-active:        lighten($black, 30%);*/

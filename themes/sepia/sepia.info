@@ -1,0 +1,22 @@
+name = Sepia
+description = The default theme for the danish library distribution
+core = 7.x
+
+
+; Import stylesheets.
+stylesheets[all][] = css/sepia.reset.css
+stylesheets[all][] = css/sepia.style.css
+
+; Import JavaScripts.
+
+
+; Regions
+regions[header] = Header
+regions[navigation] = Navigation
+regions[content_top] = Content top
+regions[content] = Primary content
+regions[secondary_content] = Secondary content
+regions[tertiary_content] = Tertiary content
+regions[footer] = Footer
+regions[bottom] = Bottom
+

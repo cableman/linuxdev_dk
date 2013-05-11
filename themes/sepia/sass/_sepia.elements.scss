@@ -1,0 +1,51 @@
+body {
+  background-color: $theme-primary-color;
+  background-attachment: fixed;
+  background-size: cover;
+  line-height: $theme-line-height;
+}
+
+body.toolbar {
+  padding-top: 66px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+}
+
+/*******
+ * Fix stuff for logged in users.
+ *******/
+.logged-in {
+  header {
+    position: relative;
+  }
+}
+
+.name-and-slogan {
+  text-align: center;
+  h1 {
+    font-size: 600%;
+  }
+  h2 {
+    margin-top: 16px;
+  }
+}
+
+#main-section {
+  width: 80%;
+  margin: 0 auto;
+}
+  
+
+img {
+  display: inline;
+  height: auto;
+  max-width: 100%;
+  vertical-align: bottom;
+}
