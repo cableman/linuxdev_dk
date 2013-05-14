@@ -25,27 +25,29 @@ nav {
       
       a {
         @include rem('font-size', 18px);
-        color: $black;
+        color: $font-color-primary;
         display: inline-block;
         margin-left: -4px;
         padding: 30px 25px 8px;
         outline: 0;
         transition: background 0.5s ease 0s;
+        transition: color 0.5s ease 0s;
         text-transform: uppercase;
         text-decoration: none;
 
-        
         &.active {
           background-color: $theme-teritary-color;
           color: $theme-primary-color;
           
           &:hover {
             background-color: $theme-teritary-color;
+            color: $black;
           }
         }
         
         &:hover {
-           background-color: $theme-secondary-color;
+          background-color: $theme-secondary-color;
+          color: $black;
         }
       }
     }

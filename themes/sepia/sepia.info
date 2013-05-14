@@ -11,12 +11,7 @@ stylesheets[all][] = css/sepia.style.css
 
 
 ; Regions
-regions[header] = Header
-regions[navigation] = Navigation
-regions[content_top] = Content top
 regions[content] = Primary content
 regions[secondary_content] = Secondary content
-regions[tertiary_content] = Tertiary content
 regions[footer] = Footer
-regions[bottom] = Bottom
 

@@ -1,7 +1,6 @@
 body {
   background-color: $theme-primary-color;
-  background-attachment: fixed;
-  background-size: cover;
+  color: $font-color-primary;
   line-height: $theme-line-height;
 }
 
@@ -37,15 +36,23 @@ h6 {
   }
 }
 
-#main-section {
+.content-wrapper {
   width: 80%;
   margin: 0 auto;
 }
-  
+
 
 img {
   display: inline;
   height: auto;
   max-width: 100%;
   vertical-align: bottom;
+}
+
+footer {
+  @include rem('font-size', 12px);
+  text-align: center;
+  background: none repeat scroll 0 0 $theme-teritary-color;
+  padding: 4px;
+  z-index: 2;
 }

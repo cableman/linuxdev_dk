@@ -5,7 +5,7 @@
  */
 ?>
 <header>
-  <nav class="clearfix">
+  <nav>
     <div class="border"></div>
     <ul class="topbar-menu">
       <li class="first topbar-link-search">
@@ -26,7 +26,7 @@
   </nav>
 
   <?php if (isset($site_name) || isset($site_slogan)): ?>
-    <section class="name-and-slogan clearfix">
+    <section class="name-and-slogan">
       <?php if (isset($site_name)): ?>
         <h1 id="site-name"><?php print $site_name; ?></h1>
       <?php endif; ?>
@@ -40,28 +40,48 @@
 
 </header> <!-- /.section, /#header -->
 
-<section id="main-section" class="clearfix">
-  <a id="main-content"></a>
-  
-  <?php if ($breadcrumb): ?>
-    <div id="breadcrumb"><?php print $breadcrumb; ?></div>
+<div class="content-wrapper">
+  <div class="primary-content">
+    <a id="main-content"></a>
+
+    <?php if (isset($breadcrumb)): ?>
+      <div id="breadcrumb"><?php print $breadcrumb; ?></div>
+    <?php endif; ?>
+
+    <?php print $messages; ?>
+
+    <?php if (isset($title)): ?>
+      <?php print render($title_prefix); ?>
+      <h1 class="title" id="page-title"><?php print $title; ?></h1>
+      <?php print render($title_suffix); ?>
+    <?php endif; ?>
+
+    <?php if (isset($tabs)): ?>
+      <div class="tabs"><?php print render($tabs); ?></div>
+    <?php endif; ?>
+
+    <?php print render($page['help']); ?>
+
+    <?php if (isset($action_links)): ?>
+      <ul class="action-links">
+        <?php print render($action_links); ?>
+      </ul>
+    <?php endif; ?>
+
+    <?php print render($page['content']); ?>
+
+    <?php print $feed_icons; ?>
+  </div>
+
+  <?php if (isset($page['secondary_content'])): ?>
+    <div class="secondary-content">
+      <?php print render($page['secondary_content']); ?>
+    </div>
   <?php endif; ?>
+</div>
 
-  <?php print $messages; ?>  <?php print render($title_prefix); ?>
-  
-  <?php if ($title): ?><h1 class="title" id="page-title"><?php print $title; ?></h1><?php endif; ?>
-  <?php print render($title_suffix); ?>
-  <?php if (isset($tabs)): ?><div class="tabs"><?php print render($tabs); ?></div><?php endif; ?>
-  <?php print render($page['help']); ?>
-  <?php if ($action_links): ?><ul class="action-links"><?php print render($action_links); ?></ul><?php endif; ?>
-  
-  <?php print render($page['content']); ?>
-  
-  <?php print $feed_icons; ?>
-</section>
-
-<footer>
-  <section>
+<?php if (isset($page['footer'])): ?>
+  <footer>
     <?php print render($page['footer']); ?>
-  </section> <!-- /.section, /#footer -->
-</footer>
+  </footer>
+<?php endif; ?>
