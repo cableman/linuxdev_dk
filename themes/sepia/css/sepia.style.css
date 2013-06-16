@@ -1457,35 +1457,81 @@ h6 {
   position: relative; }
 
 /* line 29, ../sass/_sepia.elements.scss */
+header {
+  margin-bottom: 28px; }
+
+/* line 33, ../sass/_sepia.elements.scss */
+a {
+  color: #584d3b; }
+  /* line 36, ../sass/_sepia.elements.scss */
+  a:hover {
+    color: #9c4a02; }
+
+/* line 42, ../sass/_sepia.elements.scss */
 .content-wrapper {
   width: 80%;
   margin: 0 auto; }
-  /* line 34, ../sass/_sepia.elements.scss */
+  /* line 46, ../sass/_sepia.elements.scss */
+  .content-wrapper .breadcrumb {
+    padding: 0;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #bbbbbb; }
+  /* line 53, ../sass/_sepia.elements.scss */
   .content-wrapper .region-content .views-row {
     padding-bottom: 12px;
     margin-bottom: 12px;
-    border-bottom: 1px solid #380300; }
-  /* line 41, ../sass/_sepia.elements.scss */
-  .content-wrapper .block-title {
+    border-bottom: 1px solid #bbbbbb; }
+  /* line 60, ../sass/_sepia.elements.scss */
+  .content-wrapper h1 {
+    font-size: 18px;
+    font-size: 1.125rem;
+    margin-top: 18px; }
+  /* line 65, ../sass/_sepia.elements.scss */
+  .content-wrapper h2 {
     font-size: 16px;
-    font-size: 1rem; }
-  /* line 45, ../sass/_sepia.elements.scss */
+    font-size: 1rem;
+    margin-top: 16px; }
+  /* line 70, ../sass/_sepia.elements.scss */
+  .content-wrapper .submitted {
+    font-size: 12px;
+    font-size: 0.75rem; }
+  /* line 74, ../sass/_sepia.elements.scss */
+  .content-wrapper .geshifilter {
+    margin: 18px 12px; }
+  /* line 78, ../sass/_sepia.elements.scss */
+  .content-wrapper .block-title {
+    font-size: 18px;
+    font-size: 1.125rem; }
+  /* line 82, ../sass/_sepia.elements.scss */
   .content-wrapper #page-title {
     font-size: 22px;
     font-size: 1.375rem; }
-  /* line 49, ../sass/_sepia.elements.scss */
+  /* line 86, ../sass/_sepia.elements.scss */
   .content-wrapper .timestamp {
     font-size: 10px;
     font-size: 0.625rem; }
+  /* line 90, ../sass/_sepia.elements.scss */
+  .content-wrapper .tags {
+    font-size: 14px;
+    font-size: 0.875rem; }
+  /* line 94, ../sass/_sepia.elements.scss */
+  .content-wrapper .comment-wrapper {
+    padding-top: 12px;
+    border-top: 1px solid #bbbbbb; }
+    /* line 97, ../sass/_sepia.elements.scss */
+    .content-wrapper .comment-wrapper input {
+      font-size: 14px;
+      font-size: 0.875rem;
+      padding: 4px; }
 
-/* line 56, ../sass/_sepia.elements.scss */
+/* line 105, ../sass/_sepia.elements.scss */
 img {
   display: inline;
   height: auto;
   max-width: 100%;
   vertical-align: bottom; }
 
-/* line 63, ../sass/_sepia.elements.scss */
+/* line 112, ../sass/_sepia.elements.scss */
 footer {
   font-size: 12px;
   font-size: 0.75rem;
@@ -1494,7 +1540,7 @@ footer {
   padding: 4px;
   z-index: 2;
   margin-top: 18px; }
-  /* line 71, ../sass/_sepia.elements.scss */
+  /* line 120, ../sass/_sepia.elements.scss */
   footer .site-name {
     font-size: 32px;
     font-size: 2rem;

@@ -26,20 +26,57 @@ h6 {
   }
 }
 
+header {
+  margin-bottom: 28px;
+}
+
+a {
+  color: $font-color-primary;
+
+  &:hover {
+    color: $brown_light;
+  }
+}
+
+
 .content-wrapper {
   width: 80%;
   margin: 0 auto;
+
+  .breadcrumb {
+    padding: 0;
+    margin-bottom: 8px;
+    border-bottom: 1px solid $grey;
+  }
 
   .region-content {
     .views-row {
       padding-bottom: 12px;
       margin-bottom: 12px;
-      border-bottom: 1px solid $brown;
+      border-bottom: 1px solid $grey;
     }
   }
 
-  .block-title {
+  h1 {
+    @include rem('font-size', 18px);
+    margin-top: 18px;
+  }
+
+  h2 {
     @include rem('font-size', 16px);
+    margin-top: 16px;
+  }
+
+  .submitted {
+    @include rem('font-size', 12px);
+  }
+
+  .geshifilter {
+    margin: 18px 12px;
+  }
+
+  .block-title {
+    @include rem('font-size', 18px);
   }
 
   #page-title {
@@ -50,6 +87,18 @@ h6 {
     @include rem('font-size', 10px);
   }
 
+  .tags {
+    @include rem('font-size', 14px);
+  }
+
+  .comment-wrapper {
+    padding-top: 12px;
+    border-top: 1px solid $grey;
+    input {
+      @include rem('font-size', 14px);
+      padding: 4px;
+    }
+  }
 }
 
 

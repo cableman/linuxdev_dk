@@ -34,7 +34,7 @@
     <a id="main-content"></a>
 
     <?php if (isset($breadcrumb)): ?>
-      <div id="breadcrumb"><?php print $breadcrumb; ?></div>
+      <?php print $breadcrumb; ?>
     <?php endif; ?>
 
     <?php print $messages; ?>
