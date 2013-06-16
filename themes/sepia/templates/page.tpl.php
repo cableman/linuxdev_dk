@@ -25,17 +25,6 @@
     <?php endif; ?>
   </nav>
 
-  <?php if (isset($site_name) || isset($site_slogan)): ?>
-    <section class="name-and-slogan">
-      <?php if (isset($site_name)): ?>
-        <h1 id="site-name"><?php print $site_name; ?></h1>
-      <?php endif; ?>
-      <?php if (isset($site_slogan)): ?>
-        <h2 id="site-slogan"><?php print $site_slogan; ?></h2>
-      <?php endif; ?>
-    </section>
-  <?php endif; ?>
-
   <?php print render($page['header']); ?>
 
 </header> <!-- /.section, /#header -->
@@ -82,6 +71,9 @@
 
 <?php if (isset($page['footer'])): ?>
   <footer>
+    <?php if (isset($site_name)): ?>
+      <p class="site-name"><?php print $site_name; ?></p>
+    <?php endif; ?>
     <?php print render($page['footer']); ?>
   </footer>
 <?php endif; ?>

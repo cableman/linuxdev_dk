@@ -1,4 +1,3 @@
-/*$box-sizing-polyfill-path:        "/profiles/ding2/themes/ddbasic/scripts/boxsizing.htc";*/
 /*
  *  Font Awesome 3.0.1
  *  the iconic font designed for use with Twitter Bootstrap
@@ -145,7 +144,7 @@ ul.icons {
 /* line 149, ../sass/_sepia.font.awesome.scss */
 .icon-border {
   border: solid 1px #eeeeee;
-  padding: 0.2em 0.25em 0.15em;
+  padding: .2em .25em .15em;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px; }
@@ -1302,26 +1301,25 @@ ul.icons {
 
 /* line 4, ../sass/_sepia.nav.scss */
 nav {
-  text-align: center;
-  height: 10em; }
-  /* line 8, ../sass/_sepia.nav.scss */
+  text-align: center; }
+  /* line 7, ../sass/_sepia.nav.scss */
   nav .main-menu {
     margin: auto;
     width: 100%; }
-  /* line 13, ../sass/_sepia.nav.scss */
+  /* line 12, ../sass/_sepia.nav.scss */
   nav ul {
     list-style: none outside none;
     margin: 0;
     padding: 0;
     width: 100%; }
-    /* line 19, ../sass/_sepia.nav.scss */
+    /* line 18, ../sass/_sepia.nav.scss */
     nav ul li {
       display: inline-block;
       float: none;
       margin-left: 1em;
       margin-right: 1em;
       width: auto; }
-      /* line 26, ../sass/_sepia.nav.scss */
+      /* line 25, ../sass/_sepia.nav.scss */
       nav ul li a {
         font-size: 18px;
         font-size: 1.125rem;
@@ -1334,35 +1332,35 @@ nav {
         transition: color 0.5s ease 0s;
         text-transform: uppercase;
         text-decoration: none; }
-        /* line 38, ../sass/_sepia.nav.scss */
+        /* line 37, ../sass/_sepia.nav.scss */
         nav ul li a.active {
           background-color: #d67f33;
           color: #fbf0da; }
-          /* line 42, ../sass/_sepia.nav.scss */
+          /* line 41, ../sass/_sepia.nav.scss */
           nav ul li a.active:hover {
             background-color: #d67f33;
             color: black; }
-        /* line 48, ../sass/_sepia.nav.scss */
+        /* line 47, ../sass/_sepia.nav.scss */
         nav ul li a:hover {
           background-color: #edb884;
           color: black; }
-  /* line 56, ../sass/_sepia.nav.scss */
+  /* line 55, ../sass/_sepia.nav.scss */
   nav .topbar-menu {
     display: none;
     float: right; }
     @media only screen and (max-width: 480px) {
-      /* line 56, ../sass/_sepia.nav.scss */
+      /* line 55, ../sass/_sepia.nav.scss */
       nav .topbar-menu {
         display: inline-block;
         margin-top: 0;
         padding: 0; }
-        /* line 63, ../sass/_sepia.nav.scss */
+        /* line 62, ../sass/_sepia.nav.scss */
         nav .topbar-menu .border {
           display: none; }
-        /* line 70, ../sass/_sepia.nav.scss */
+        /* line 69, ../sass/_sepia.nav.scss */
         nav .topbar-menu i[class^="icon-"] {
           margin-right: 0; }
-        /* line 74, ../sass/_sepia.nav.scss */
+        /* line 73, ../sass/_sepia.nav.scss */
         nav .topbar-menu .menu-item {
           font-size: 18px;
           font-size: 1.125rem;
@@ -1372,29 +1370,29 @@ nav {
           margin-left: -4px;
           padding: 10px 15px;
           outline: 0; }
-          /* line 85, ../sass/_sepia.nav.scss */
+          /* line 84, ../sass/_sepia.nav.scss */
           nav .topbar-menu .menu-item:hover {
             background-color: white;
             color: white;
             text-decoration: none; }
-          /* line 92, ../sass/_sepia.nav.scss */
+          /* line 91, ../sass/_sepia.nav.scss */
           nav .topbar-menu .menu-item.active {
             color: white;
             text-decoration: none;
             background-color: #fbf0da; } }
     @media only screen and (min-width: 481px) and (max-width: 768px) {
-      /* line 56, ../sass/_sepia.nav.scss */
+      /* line 55, ../sass/_sepia.nav.scss */
       nav .topbar-menu {
         display: inline-block;
         margin-top: 0;
         padding: 0; }
-        /* line 63, ../sass/_sepia.nav.scss */
+        /* line 62, ../sass/_sepia.nav.scss */
         nav .topbar-menu .border {
           display: none; }
-        /* line 70, ../sass/_sepia.nav.scss */
+        /* line 69, ../sass/_sepia.nav.scss */
         nav .topbar-menu i[class^="icon-"] {
           margin-right: 0; }
-        /* line 74, ../sass/_sepia.nav.scss */
+        /* line 73, ../sass/_sepia.nav.scss */
         nav .topbar-menu .menu-item {
           font-size: 18px;
           font-size: 1.125rem;
@@ -1404,25 +1402,25 @@ nav {
           margin-left: -4px;
           padding: 10px 15px;
           outline: 0; }
-          /* line 85, ../sass/_sepia.nav.scss */
+          /* line 84, ../sass/_sepia.nav.scss */
           nav .topbar-menu .menu-item:hover {
             background-color: white;
             color: white;
             text-decoration: none; }
-          /* line 92, ../sass/_sepia.nav.scss */
+          /* line 91, ../sass/_sepia.nav.scss */
           nav .topbar-menu .menu-item.active {
             color: white;
             text-decoration: none;
             background-color: #fbf0da; } }
   @media only screen and (max-width: 480px) {
-    /* line 102, ../sass/_sepia.nav.scss */
+    /* line 101, ../sass/_sepia.nav.scss */
     nav .border {
       display: none; } }
   @media only screen and (min-width: 481px) and (max-width: 768px) {
-    /* line 102, ../sass/_sepia.nav.scss */
+    /* line 101, ../sass/_sepia.nav.scss */
     nav .border {
       display: none; } }
-  /* line 106, ../sass/_sepia.nav.scss */
+  /* line 105, ../sass/_sepia.nav.scss */
   nav .border {
     background: none repeat scroll 0 0 #d67f33;
     height: 0.8em;
@@ -1459,32 +1457,47 @@ h6 {
   position: relative; }
 
 /* line 29, ../sass/_sepia.elements.scss */
-.name-and-slogan {
-  text-align: center; }
-  /* line 31, ../sass/_sepia.elements.scss */
-  .name-and-slogan h1 {
-    font-size: 600%; }
-  /* line 34, ../sass/_sepia.elements.scss */
-  .name-and-slogan h2 {
-    margin-top: 16px; }
-
-/* line 39, ../sass/_sepia.elements.scss */
 .content-wrapper {
   width: 80%;
   margin: 0 auto; }
+  /* line 34, ../sass/_sepia.elements.scss */
+  .content-wrapper .region-content .views-row {
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #380300; }
+  /* line 41, ../sass/_sepia.elements.scss */
+  .content-wrapper .block-title {
+    font-size: 16px;
+    font-size: 1rem; }
+  /* line 45, ../sass/_sepia.elements.scss */
+  .content-wrapper #page-title {
+    font-size: 22px;
+    font-size: 1.375rem; }
+  /* line 49, ../sass/_sepia.elements.scss */
+  .content-wrapper .timestamp {
+    font-size: 10px;
+    font-size: 0.625rem; }
 
-/* line 45, ../sass/_sepia.elements.scss */
+/* line 56, ../sass/_sepia.elements.scss */
 img {
   display: inline;
   height: auto;
   max-width: 100%;
   vertical-align: bottom; }
 
-/* line 52, ../sass/_sepia.elements.scss */
+/* line 63, ../sass/_sepia.elements.scss */
 footer {
   font-size: 12px;
   font-size: 0.75rem;
   text-align: center;
   background: none repeat scroll 0 0 #d67f33;
   padding: 4px;
-  z-index: 2; }
+  z-index: 2;
+  margin-top: 18px; }
+  /* line 71, ../sass/_sepia.elements.scss */
+  footer .site-name {
+    font-size: 32px;
+    font-size: 2rem;
+    font-weight: bold;
+    padding-top: 12px;
+    color: #fbf0da; }

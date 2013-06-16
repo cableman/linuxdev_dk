@@ -26,19 +26,30 @@ h6 {
   }
 }
 
-.name-and-slogan {
-  text-align: center;
-  h1 {
-    font-size: 600%;
-  }
-  h2 {
-    margin-top: 16px;
-  }
-}
-
 .content-wrapper {
   width: 80%;
   margin: 0 auto;
+
+  .region-content {
+    .views-row {
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid $brown;
+    }
+  }
+
+  .block-title {
+    @include rem('font-size', 16px);
+  }
+
+  #page-title {
+    @include rem('font-size', 22px);
+  }
+
+  .timestamp {
+    @include rem('font-size', 10px);
+  }
+
 }
 
 
@@ -55,4 +66,12 @@ footer {
   background: none repeat scroll 0 0 $theme-teritary-color;
   padding: 4px;
   z-index: 2;
+  margin-top: 18px;
+
+  .site-name {
+    @include rem('font-size', 32px);
+    font-weight: bold;
+    padding-top: 12px;
+    color: $theme-primary-color;
+  }
 }

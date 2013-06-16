@@ -3,16 +3,6 @@
 // =============================================================================
 //
 
-
-// -----------------------------------------------------------------------------
-// Basic settings
-// -----------------------------------------------------------------------------
-//
-$default-spacing:                 20px;
-
-/*$box-sizing-polyfill-path:        "/profiles/ding2/themes/ddbasic/scripts/boxsizing.htc";*/
-
-
 // -----------------------------------------------------------------------------
 // Standard color definitions
 // -----------------------------------------------------------------------------
@@ -51,7 +41,6 @@ $font-color-primary:              #584d3b;
 //
 $theme-font-size:                 16px;
 $theme-line-height:               24px;
-$theme-font-family:               "Helvetica Neue", Helvetica, "Lucida Sans Unicode", Arial, sans-serif;
 $theme-font-weight-normal:        normal;
 $theme-font-weight-bold:          normal;
 $theme-font-selection-color:      $font-color-primary;
@@ -63,40 +52,3 @@ $theme-font-selection-background: $brown_light;
 // -----------------------------------------------------------------------------
 //
 $base-font-size:  16px;
-
-
-/*// -----------------------------------------------------------------------------
-// Text colors
-// -----------------------------------------------------------------------------
-//
-$text-primary-color:         #4c4c4c;
-$text-selection-color:       #333;
-$text-selection-background:  #ffff99;
-
-
-// -----------------------------------------------------------------------------
-// Links
-// -----------------------------------------------------------------------------
-//
-$link-color:                      #00b7e7;
-$link-color-hover:                darken($link-color, 20%);
-
-
-// -----------------------------------------------------------------------------
-// Articles
-// -----------------------------------------------------------------------------
-//
-$article-background:              #ebebeb;
-$article-background-odd:          #e8e8e8;
-$article-background-even:         #f2f2f2;
-$article-text:                    #4c4c4c;
-
-
-// -----------------------------------------------------------------------------
-// Navigation
-// -----------------------------------------------------------------------------
-//
-$navbar-bg-color:                 transparentize($white, .95);
-$navbar-bg-active-color:          transparentize($white, .95);
-$navbar-text-color:               lighten($black, 30%);
-$navbar-text-color-active:        lighten($black, 30%);*/
