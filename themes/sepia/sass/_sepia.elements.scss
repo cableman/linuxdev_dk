@@ -43,7 +43,13 @@ a {
   width: 80%;
   margin: 0 auto;
 
+  .tabs {
+    @include rem('font-size', 12px);
+    float: right;
+  }
+
   .breadcrumb {
+    @include rem('font-size', 14px);
     padding: 0;
     margin-bottom: 8px;
     border-bottom: 1px solid $grey;
@@ -69,6 +75,7 @@ a {
 
   .submitted {
     @include rem('font-size', 12px);
+    padding-bottom: 4px;
   }
 
   .geshifilter {
@@ -91,6 +98,16 @@ a {
     @include rem('font-size', 14px);
   }
 
+  ul {
+    list-style: disc;
+    list-style: inside;
+    margin: 8px;
+
+    &.action-links {
+      margin: 0;
+    }
+  }
+
   .comment-wrapper {
     padding-top: 12px;
     border-top: 1px solid $grey;
@@ -100,7 +117,6 @@ a {
     }
   }
 }
-
 
 img {
   display: inline;

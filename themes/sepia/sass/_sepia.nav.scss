@@ -34,6 +34,7 @@ nav {
         text-transform: uppercase;
         text-decoration: none;
 
+        &.active-trail,
         &.active {
           background-color: $theme-teritary-color;
           color: $theme-primary-color;
@@ -88,6 +89,7 @@ nav {
           text-decoration: none;
         }
 
+        &.active-trail,
         &.active {
           color: $white;
           text-decoration: none;
@@ -101,7 +103,12 @@ nav {
     .border {
       display: none;
     }
+
+    .main-menu {
+      display: none;
+    }
   }
+
   .border {
     background: none repeat scroll 0 0 $theme-teritary-color;
     height: 0.8em;
