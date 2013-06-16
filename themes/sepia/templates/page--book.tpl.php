@@ -30,7 +30,11 @@
 </header> <!-- /.section, /#header -->
 
 <div class="content-wrapper">
-  <div class="primary-content">
+  <?php if (isset($page['secondary_content']) && !empty($page['secondary_content'])) { ?>
+    <div class="primary-content">
+  <?php } else { ?>
+    <div class="primary-content-full">
+  <?php } ?>
     <a id="main-content"></a>
 
     <?php if (isset($breadcrumb)): ?>

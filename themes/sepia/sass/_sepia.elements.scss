@@ -60,15 +60,25 @@ a {
     }
   }
 
-  .primary-content {
+  .primary-content,
+  .primary-content-full {
     h1 {
       @include rem('font-size', 18px);
-      margin-top: 18px;
+      margin-top: 16px;
     }
 
     h2 {
       @include rem('font-size', 16px);
-      margin-top: 16px;
+      margin-top: 14px;
+    }
+
+    h3, h4, h5 {
+      @include rem('font-size', 14px);
+      margin-top: 12px;
+    }
+
+    p {
+      margin-bottom: 8px;
     }
 
     .submitted {
@@ -119,6 +129,10 @@ a {
       @include rem('font-size', 14px);
       padding: 4px;
     }
+  }
+
+  .menu .expanded .menu {
+    margin-left: 8px;
   }
 }
 
