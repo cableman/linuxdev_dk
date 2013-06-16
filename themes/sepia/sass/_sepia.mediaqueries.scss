@@ -11,32 +11,24 @@
 $breakpoint-small:    480px;
 $breakpoint-medium:   768px;
 $breakpoint-large:    940px;
-$breakpoint-x-large:  1210px;
-
 
 // **
 // The respond-to mixin
 // **
 //
 @mixin respond-to($media) {
+  // Sizes
+  @if $media == small {
+    @media only screen and (max-width: $breakpoint-small) { @content; }
+  }
 
-	// Sizes
-	@if $media == small {
-		@media only screen and (max-width: $breakpoint-small) { @content; }
-	}
+  @else if $media == medium {
+    @media only screen and (min-width: $breakpoint-small + 1) and (max-width: $breakpoint-medium) { @content; }
+  }
 
-	@else if $media == medium {
-		@media only screen and (min-width: $breakpoint-small + 1) and (max-width: $breakpoint-medium) { @content; }
-	}
-
-	@else if $media == large {
-		@media only screen and (min-width: $breakpoint-medium + 1) and (max-width: $breakpoint-large) { @content; }
-	}
-
-	@else if $media == x-large {
-		@media only screen and (min-width: $breakpoint-x-large + 1) { @content; }
-	}
-
+  @else if $media == large {
+    @media only screen and (min-width: $breakpoint-medium + 1) { @content; }
+  }
 }
 
 
@@ -53,19 +45,7 @@ $breakpoint-x-large:  1210px;
   @include respond-to(medium) { @content; }
 }
 
-@mixin medium {
+@mixin medium-large {
   @include respond-to(medium) { @content; }
-}
-
-@mixin large {
   @include respond-to(large) { @content; }
-}
-
-@mixin x-large {
-  @include respond-to(x-large) { @content; }
-}
-
-@mixin large-x-large {
-  @include respond-to(large) { @content; }
-  @include respond-to(x-large) { @content; }
 }

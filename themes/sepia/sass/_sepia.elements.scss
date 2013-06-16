@@ -40,9 +40,6 @@ a {
 
 
 .content-wrapper {
-  width: 80%;
-  margin: 0 auto;
-
   .tabs {
     @include rem('font-size', 12px);
     float: right;
@@ -63,49 +60,56 @@ a {
     }
   }
 
-  h1 {
-    @include rem('font-size', 18px);
-    margin-top: 18px;
-  }
-
-  h2 {
-    @include rem('font-size', 16px);
-    margin-top: 16px;
-  }
-
-  .submitted {
-    @include rem('font-size', 12px);
-    padding-bottom: 4px;
-  }
-
-  .geshifilter {
-    margin: 18px 12px;
-  }
-
-  .block-title {
-    @include rem('font-size', 18px);
-  }
-
-  #page-title {
-    @include rem('font-size', 22px);
-  }
-
-  .timestamp {
-    @include rem('font-size', 10px);
-  }
-
-  .tags {
-    @include rem('font-size', 14px);
-  }
-
-  ul {
-    list-style: disc;
-    list-style: inside;
-    margin: 8px;
-
-    &.action-links {
-      margin: 0;
+  .primary-content {
+    h1 {
+      @include rem('font-size', 18px);
+      margin-top: 18px;
     }
+
+    h2 {
+      @include rem('font-size', 16px);
+      margin-top: 16px;
+    }
+
+    .submitted {
+      @include rem('font-size', 12px);
+      padding-bottom: 4px;
+    }
+
+    .geshifilter {
+      margin: 18px 12px;
+    }
+
+    .block-title {
+      @include rem('font-size', 18px);
+    }
+
+    #page-title {
+      @include rem('font-size', 22px);
+    }
+
+    .timestamp {
+      @include rem('font-size', 10px);
+    }
+
+    .tags {
+      @include rem('font-size', 14px);
+    }
+
+    ul {
+      list-style: disc inside none;
+      margin: 8px;
+
+      &.action-links {
+        margin: 0;
+      }
+    }
+
+    ol {
+      list-style: decimal inside none;
+      margin: 8px;
+    }
+
   }
 
   .comment-wrapper {
