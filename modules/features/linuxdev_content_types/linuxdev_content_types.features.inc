@@ -101,7 +101,7 @@ function linuxdev_content_types_node_info() {
       'help' => '',
     ),
     'book' => array(
-      'name' => t('Book page'),
+      'name' => t('Articles'),
       'base' => 'node_content',
       'description' => t('<em>Books</em> have a built-in hierarchical navigation. Use for handbooks or tutorials.'),
       'has_title' => '1',
