@@ -2,4 +2,4 @@ files
 *settings.php
 private
 drushrc.php
-/themes/dragon/.sass-cache/
+.sass-cache

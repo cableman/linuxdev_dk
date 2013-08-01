@@ -1,0 +1,160 @@
+body {
+  background-color: $theme-primary-color;
+  color: $font-color-primary;
+  line-height: $theme-line-height;
+}
+
+body.toolbar {
+  padding-top: 66px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+}
+
+/*******
+ * Fix stuff for logged in users.
+ *******/
+.logged-in {
+  header {
+    position: relative;
+  }
+}
+
+header {
+  margin-bottom: 28px;
+}
+
+a {
+  color: $font-color-primary;
+
+  &:hover {
+    color: $brown_light;
+  }
+}
+
+
+.content-wrapper {
+  .tabs {
+    @include rem('font-size', 12px);
+    float: right;
+  }
+
+  .breadcrumb {
+    @include rem('font-size', 14px);
+    padding: 0;
+    margin-bottom: 8px;
+    border-bottom: 1px solid $grey;
+  }
+
+  .region-content {
+    .views-row {
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid $grey;
+    }
+  }
+
+  .primary-content,
+  .primary-content-full {
+    h1 {
+      @include rem('font-size', 18px);
+      margin-top: 16px;
+    }
+
+    h2 {
+      @include rem('font-size', 16px);
+      margin-top: 14px;
+    }
+
+    h3, h4, h5 {
+      @include rem('font-size', 14px);
+      margin-top: 12px;
+    }
+
+    p {
+      margin-bottom: 8px;
+    }
+
+    .submitted {
+      @include rem('font-size', 12px);
+      padding-bottom: 4px;
+    }
+
+    .geshifilter {
+      margin: 18px 12px;
+    }
+
+    .block-title {
+      @include rem('font-size', 18px);
+    }
+
+    #page-title {
+      @include rem('font-size', 22px);
+    }
+
+    .timestamp {
+      @include rem('font-size', 10px);
+    }
+
+    .tags {
+      @include rem('font-size', 14px);
+    }
+
+    ul {
+      list-style: disc inside none;
+      margin: 8px;
+
+      &.action-links {
+        margin: 0;
+      }
+    }
+
+    ol {
+      list-style: decimal inside none;
+      margin: 8px;
+    }
+
+  }
+
+  .comment-wrapper {
+    padding-top: 12px;
+    border-top: 1px solid $grey;
+    input {
+      @include rem('font-size', 14px);
+      padding: 4px;
+    }
+  }
+
+  .menu .expanded .menu {
+    margin-left: 8px;
+  }
+}
+
+img {
+  display: inline;
+  height: auto;
+  max-width: 100%;
+  vertical-align: bottom;
+}
+
+footer {
+  @include rem('font-size', 12px);
+  text-align: center;
+  background: none repeat scroll 0 0 $theme-teritary-color;
+  padding: 4px;
+  z-index: 2;
+  margin-top: 18px;
+
+  .site-name {
+    @include rem('font-size', 32px);
+    font-weight: bold;
+    padding-top: 12px;
+    color: $theme-primary-color;
+  }
+}

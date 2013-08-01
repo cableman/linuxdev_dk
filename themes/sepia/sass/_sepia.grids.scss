@@ -1,0 +1,41 @@
+@import "zen";
+
+.content-wrapper {
+  $zen-column-count: 12;
+  $zen-gutter-width: 10px;
+
+  @include zen-grid-container;
+  width: 80%;
+  margin: 0 auto;
+}
+
+@include medium-large() {
+  .secondary-content {
+    @include zen-grid-item(4, 1);
+  }
+
+  .primary-content {
+    @include zen-grid-item(8, 5);
+  }
+
+  .primary-content-full {
+    @include zen-grid-item(12, 1);
+  }
+}
+
+@include small-medium() {
+  .primary-content {
+    @include zen-grid-item(12, 1);
+    @include zen-clear();
+  }
+
+  .primary-content-full {
+    @include zen-grid-item(12, 1);
+    @include zen-clear();
+  }
+
+  .secondary-content {
+    @include zen-grid-item(12, 1);
+    @include zen-clear();
+  }
+}
