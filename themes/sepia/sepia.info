@@ -8,7 +8,7 @@ stylesheets[all][] = css/sepia.reset.css
 stylesheets[all][] = css/sepia.style.css
 
 ; Import JavaScripts.
-
+scripts[] = js/script.js
 
 ; Regions
 regions[content] = Primary content

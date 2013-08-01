@@ -89,22 +89,20 @@ nav {
         padding: 10px 15px;
         outline: 0;
 
-        a {
-          &.active-trail,
-          &.active {
-            background-color: $theme-teritary-color;
-            color: $theme-primary-color;
-
-            &:hover {
-              background-color: $theme-teritary-color;
-              color: $black;
-            }
-          }
+        &.active-trail,
+        &.active {
+          background-color: $theme-secondary-color;
+          color: $theme-primary-color;
 
           &:hover {
             background-color: $theme-secondary-color;
             color: $black;
           }
+        }
+
+        &:hover {
+          background-color: $theme-secondary-color;
+          color: $black;
         }
       }
     }
@@ -117,6 +115,38 @@ nav {
 
     .main-menu {
       display: none;
+      border-top: 4px solid $theme-secondary-color;
+
+      li {
+        display: block;
+        margin-left: 0;
+        margin-right: 0;
+
+        a {
+          background-color: $theme-secondary-color;
+          color: $theme-primary-color;
+          width: 100%;
+          margin-left: 0;
+          margin-right: 0;
+          padding: 20px 0px;
+ 
+        &.active-trail,
+        &.active {
+          background-color: $theme-teritary-color;
+          color: $theme-primary-color;
+
+          &:hover {
+            background-color: $theme-teritary-color;
+            color: $black;
+          }
+        }
+
+        &:hover {
+          background-color: $theme-teritary-color;
+          color: $black;
+        }
+      }
+      }
     }
   }
 

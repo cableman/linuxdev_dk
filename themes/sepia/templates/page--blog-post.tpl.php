@@ -9,12 +9,12 @@
     <div class="border"></div>
     <ul class="topbar-menu">
       <li class="first topbar-link-search">
-        <a class="menu-item js-topbar-link topbar-link-search" title="" href="/search">
+        <a class="menu-item js-topbar-link search" title="" href="/search">
           <i class="icon-search"></i>
         </a>
       </li>
       <li class="last topbar-link-menu">
-        <a class="menu-item js-topbar-link topbar-link-menu" title="" href="#">
+        <a class="menu-item js-topbar-link menu" title="" href="#">
           <i class="icon-align-justify"></i>
         </a>
       </li>

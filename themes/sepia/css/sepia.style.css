@@ -1939,18 +1939,18 @@ nav .topbar-menu {
     padding: 10px 15px;
     outline: 0;
   }
-  /* line 94, ../sass/_sepia.nav.scss */
-  nav .topbar-menu .menu-item a.active-trail, nav .topbar-menu .menu-item a.active {
-    background-color: #d67f33;
+  /* line 93, ../sass/_sepia.nav.scss */
+  nav .topbar-menu .menu-item.active-trail, nav .topbar-menu .menu-item.active {
+    background-color: #edb884;
     color: #fbf0da;
   }
-  /* line 98, ../sass/_sepia.nav.scss */
-  nav .topbar-menu .menu-item a.active-trail:hover, nav .topbar-menu .menu-item a.active:hover {
-    background-color: #d67f33;
+  /* line 97, ../sass/_sepia.nav.scss */
+  nav .topbar-menu .menu-item.active-trail:hover, nav .topbar-menu .menu-item.active:hover {
+    background-color: #edb884;
     color: black;
   }
-  /* line 104, ../sass/_sepia.nav.scss */
-  nav .topbar-menu .menu-item a:hover {
+  /* line 103, ../sass/_sepia.nav.scss */
+  nav .topbar-menu .menu-item:hover {
     background-color: #edb884;
     color: black;
   }
@@ -1989,43 +1989,105 @@ nav .topbar-menu {
     padding: 10px 15px;
     outline: 0;
   }
-  /* line 94, ../sass/_sepia.nav.scss */
-  nav .topbar-menu .menu-item a.active-trail, nav .topbar-menu .menu-item a.active {
-    background-color: #d67f33;
+  /* line 93, ../sass/_sepia.nav.scss */
+  nav .topbar-menu .menu-item.active-trail, nav .topbar-menu .menu-item.active {
+    background-color: #edb884;
     color: #fbf0da;
   }
-  /* line 98, ../sass/_sepia.nav.scss */
-  nav .topbar-menu .menu-item a.active-trail:hover, nav .topbar-menu .menu-item a.active:hover {
-    background-color: #d67f33;
+  /* line 97, ../sass/_sepia.nav.scss */
+  nav .topbar-menu .menu-item.active-trail:hover, nav .topbar-menu .menu-item.active:hover {
+    background-color: #edb884;
     color: black;
   }
-  /* line 104, ../sass/_sepia.nav.scss */
-  nav .topbar-menu .menu-item a:hover {
+  /* line 103, ../sass/_sepia.nav.scss */
+  nav .topbar-menu .menu-item:hover {
     background-color: #edb884;
     color: black;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 114, ../sass/_sepia.nav.scss */
+  /* line 112, ../sass/_sepia.nav.scss */
   nav .border {
     display: none;
   }
-  /* line 118, ../sass/_sepia.nav.scss */
+  /* line 116, ../sass/_sepia.nav.scss */
   nav .main-menu {
     display: none;
+    border-top: 4px solid #edb884;
+  }
+  /* line 120, ../sass/_sepia.nav.scss */
+  nav .main-menu li {
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  /* line 125, ../sass/_sepia.nav.scss */
+  nav .main-menu li a {
+    background-color: #edb884;
+    color: #fbf0da;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 20px 0px;
+  }
+  /* line 134, ../sass/_sepia.nav.scss */
+  nav .main-menu li a.active-trail, nav .main-menu li a.active {
+    background-color: #d67f33;
+    color: #fbf0da;
+  }
+  /* line 138, ../sass/_sepia.nav.scss */
+  nav .main-menu li a.active-trail:hover, nav .main-menu li a.active:hover {
+    background-color: #d67f33;
+    color: black;
+  }
+  /* line 144, ../sass/_sepia.nav.scss */
+  nav .main-menu li a:hover {
+    background-color: #d67f33;
+    color: black;
   }
 }
 @media only screen and (min-width: 481px) and (max-width: 768px) {
-  /* line 114, ../sass/_sepia.nav.scss */
+  /* line 112, ../sass/_sepia.nav.scss */
   nav .border {
     display: none;
   }
-  /* line 118, ../sass/_sepia.nav.scss */
+  /* line 116, ../sass/_sepia.nav.scss */
   nav .main-menu {
     display: none;
+    border-top: 4px solid #edb884;
+  }
+  /* line 120, ../sass/_sepia.nav.scss */
+  nav .main-menu li {
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  /* line 125, ../sass/_sepia.nav.scss */
+  nav .main-menu li a {
+    background-color: #edb884;
+    color: #fbf0da;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 20px 0px;
+  }
+  /* line 134, ../sass/_sepia.nav.scss */
+  nav .main-menu li a.active-trail, nav .main-menu li a.active {
+    background-color: #d67f33;
+    color: #fbf0da;
+  }
+  /* line 138, ../sass/_sepia.nav.scss */
+  nav .main-menu li a.active-trail:hover, nav .main-menu li a.active:hover {
+    background-color: #d67f33;
+    color: black;
+  }
+  /* line 144, ../sass/_sepia.nav.scss */
+  nav .main-menu li a:hover {
+    background-color: #d67f33;
+    color: black;
   }
 }
-/* line 123, ../sass/_sepia.nav.scss */
+/* line 153, ../sass/_sepia.nav.scss */
 nav .border {
   background: none repeat scroll 0 0 #d67f33;
   height: 0.8em;

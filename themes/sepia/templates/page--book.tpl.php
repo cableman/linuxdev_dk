@@ -8,13 +8,13 @@
   <nav>
     <div class="border"></div>
     <ul class="topbar-menu">
-      <li class="first topbar-link-search">
-        <a class="menu-item js-topbar-link topbar-link-search" title="" href="/search">
+      <li class="first js-topbar-link">
+        <a class="menu-item js-search" title="" href="/search">
           <i class="icon-search"></i>
         </a>
       </li>
-      <li class="last topbar-link-menu">
-        <a class="menu-item js-topbar-link topbar-link-menu" title="" href="#">
+      <li class="last js-topbar-link">
+        <a class="menu-item js-menu" title="" href="#">
           <i class="icon-align-justify"></i>
         </a>
       </li>
