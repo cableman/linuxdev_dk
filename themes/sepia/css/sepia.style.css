@@ -1901,17 +1901,18 @@ nav ul li a:hover {
 }
 /* line 56, ../sass/_sepia.nav.scss */
 nav .topbar-menu {
+  background: none repeat scroll 0 0 #d67f33;
   display: none;
-  float: right;
+  text-align: right;
 }
 @media only screen and (max-width: 480px) {
   /* line 56, ../sass/_sepia.nav.scss */
   nav .topbar-menu {
     display: inline-block;
-    margin-top: 0;
+    margin: 0;
     padding: 0;
   }
-  /* line 63, ../sass/_sepia.nav.scss */
+  /* line 66, ../sass/_sepia.nav.scss */
   nav .topbar-menu .border {
     display: none;
   }
@@ -1920,37 +1921,48 @@ nav .topbar-menu {
     margin-right: 0;
   }
   /* line 74, ../sass/_sepia.nav.scss */
+  nav .topbar-menu li {
+    margin: 0;
+  }
+  /* line 77, ../sass/_sepia.nav.scss */
+  nav .topbar-menu li.last {
+    margin-right: 1em;
+  }
+  /* line 81, ../sass/_sepia.nav.scss */
   nav .topbar-menu .menu-item {
     font-size: 18px;
     font-size: 1.125rem;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
-    color: white;
+    color: #fbf0da;
     display: inline-block;
     margin-left: -4px;
     padding: 10px 15px;
     outline: 0;
   }
-  /* line 85, ../sass/_sepia.nav.scss */
-  nav .topbar-menu .menu-item:hover {
-    background-color: white;
-    color: white;
-    text-decoration: none;
+  /* line 94, ../sass/_sepia.nav.scss */
+  nav .topbar-menu .menu-item a.active-trail, nav .topbar-menu .menu-item a.active {
+    background-color: #d67f33;
+    color: #fbf0da;
   }
-  /* line 93, ../sass/_sepia.nav.scss */
-  nav .topbar-menu .menu-item.active-trail, nav .topbar-menu .menu-item.active {
-    color: white;
-    text-decoration: none;
-    background-color: #fbf0da;
+  /* line 98, ../sass/_sepia.nav.scss */
+  nav .topbar-menu .menu-item a.active-trail:hover, nav .topbar-menu .menu-item a.active:hover {
+    background-color: #d67f33;
+    color: black;
+  }
+  /* line 104, ../sass/_sepia.nav.scss */
+  nav .topbar-menu .menu-item a:hover {
+    background-color: #edb884;
+    color: black;
   }
 }
 @media only screen and (min-width: 481px) and (max-width: 768px) {
   /* line 56, ../sass/_sepia.nav.scss */
   nav .topbar-menu {
     display: inline-block;
-    margin-top: 0;
+    margin: 0;
     padding: 0;
   }
-  /* line 63, ../sass/_sepia.nav.scss */
+  /* line 66, ../sass/_sepia.nav.scss */
   nav .topbar-menu .border {
     display: none;
   }
@@ -1959,50 +1971,61 @@ nav .topbar-menu {
     margin-right: 0;
   }
   /* line 74, ../sass/_sepia.nav.scss */
+  nav .topbar-menu li {
+    margin: 0;
+  }
+  /* line 77, ../sass/_sepia.nav.scss */
+  nav .topbar-menu li.last {
+    margin-right: 1em;
+  }
+  /* line 81, ../sass/_sepia.nav.scss */
   nav .topbar-menu .menu-item {
     font-size: 18px;
     font-size: 1.125rem;
     text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
-    color: white;
+    color: #fbf0da;
     display: inline-block;
     margin-left: -4px;
     padding: 10px 15px;
     outline: 0;
   }
-  /* line 85, ../sass/_sepia.nav.scss */
-  nav .topbar-menu .menu-item:hover {
-    background-color: white;
-    color: white;
-    text-decoration: none;
+  /* line 94, ../sass/_sepia.nav.scss */
+  nav .topbar-menu .menu-item a.active-trail, nav .topbar-menu .menu-item a.active {
+    background-color: #d67f33;
+    color: #fbf0da;
   }
-  /* line 93, ../sass/_sepia.nav.scss */
-  nav .topbar-menu .menu-item.active-trail, nav .topbar-menu .menu-item.active {
-    color: white;
-    text-decoration: none;
-    background-color: #fbf0da;
+  /* line 98, ../sass/_sepia.nav.scss */
+  nav .topbar-menu .menu-item a.active-trail:hover, nav .topbar-menu .menu-item a.active:hover {
+    background-color: #d67f33;
+    color: black;
+  }
+  /* line 104, ../sass/_sepia.nav.scss */
+  nav .topbar-menu .menu-item a:hover {
+    background-color: #edb884;
+    color: black;
   }
 }
 @media only screen and (max-width: 480px) {
-  /* line 103, ../sass/_sepia.nav.scss */
+  /* line 114, ../sass/_sepia.nav.scss */
   nav .border {
     display: none;
   }
-  /* line 107, ../sass/_sepia.nav.scss */
+  /* line 118, ../sass/_sepia.nav.scss */
   nav .main-menu {
     display: none;
   }
 }
 @media only screen and (min-width: 481px) and (max-width: 768px) {
-  /* line 103, ../sass/_sepia.nav.scss */
+  /* line 114, ../sass/_sepia.nav.scss */
   nav .border {
     display: none;
   }
-  /* line 107, ../sass/_sepia.nav.scss */
+  /* line 118, ../sass/_sepia.nav.scss */
   nav .main-menu {
     display: none;
   }
 }
-/* line 112, ../sass/_sepia.nav.scss */
+/* line 123, ../sass/_sepia.nav.scss */
 nav .border {
   background: none repeat scroll 0 0 #d67f33;
   height: 0.8em;

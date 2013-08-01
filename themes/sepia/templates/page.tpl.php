@@ -14,7 +14,7 @@
         </a>
       </li>
       <li class="last topbar-link-menu">
-        <a class="menu-item js-topbar-link topbar-link-menu active" title="" href="#">
+        <a class="menu-item js-topbar-link topbar-link-menu" title="" href="#">
           <i class="icon-align-justify"></i>
         </a>
       </li>
