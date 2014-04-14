@@ -81,7 +81,6 @@ nav {
       .menu-item {
         @include rem('font-size', 18px);
         @include text-shadow(1px 1px 0 rgba(0, 0, 0, .5));
-        @extend %font-bold;
 
         color: $theme-primary-color;
         display: inline-block;

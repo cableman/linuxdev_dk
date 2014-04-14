@@ -1,8 +1,8 @@
 @import "zen";
 
 .content-wrapper {
-  $zen-column-count: 12;
-  $zen-gutter-width: 10px;
+  $zen-column-count: 12 !global;
+  $zen-gutter-width: 10px !global;
 
   @include zen-grid-container;
   width: 80%;
