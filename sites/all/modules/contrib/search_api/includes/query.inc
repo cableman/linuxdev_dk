@@ -153,7 +153,9 @@ interface SearchApiQueryInterface {
    *
    * @param string $field
    *   The field to sort by. The special fields 'search_api_relevance' (sort by
-   *   relevance) and 'search_api_id' (sort by item id) may be used.
+   *   relevance) and 'search_api_id' (sort by item id) may be used. Also, if
+   *   the search server supports the "search_api_random_sort" feature, the
+   *   "search_api_random" special field can be used to sort randomly.
    * @param string $order
    *   The order to sort items in - either 'ASC' or 'DESC'.
    *
@@ -199,7 +201,16 @@ interface SearchApiQueryInterface {
    *       already ready-to-use. This allows search engines (or postprocessors)
    *       to store extracted fields so other modules don't have to extract them
    *       again. This fields should always be checked by modules that want to
-   *       use field contents of the result items.
+   *       use field contents of the result items. The format of the array is
+   *       field IDs (as used by the Search API internally) mapped to either the
+   *       raw value of the field (scalar or array value), or an associative
+   *       array with the following keys:
+   *       - #value: The raw field value.
+   *       - #sanitize_callback: The callback to use for sanitizing the field
+   *         value for HTML output, or FALSE to state that the field value is
+   *         already sanitized.
+   *       In the simple form, it's assumed the field value should be sanitized
+   *       with check_plain().
    *     - entity: (optional) If set, the fully loaded result item. This field
    *       should always be used by modules using search results, to avoid
    *       duplicate item loads.
@@ -217,7 +228,10 @@ interface SearchApiQueryInterface {
    *     - execution: The actual query to the search server, in whatever form.
    *     - postprocessing: Preparing the results for returning.
    *   Additional metadata may be returned in other keys. Only 'result count'
-   *   and 'result' always have to be set, all other entries are optional.
+   *   and 'results' always have to be set, all other entries are optional.
+   *
+   * @throws SearchApiException
+   *   If an error prevented the search from completing.
    */
   public function execute();
 
@@ -226,6 +240,9 @@ interface SearchApiQueryInterface {
    *
    * This method should always be called by execute() and contain all necessary
    * operations before the query is passed to the server's search() method.
+   *
+   * @throws SearchApiException
+   *   If any error occurred during the preparation of the query.
    */
   public function preExecute();
 
@@ -366,7 +383,7 @@ class SearchApiQuery implements SearchApiQueryInterface {
   /**
    * The index's machine name.
    *
-   * used during serialization to avoid serializing the whole index object.
+   * Used during serialization to avoid serializing the whole index object.
    *
    * @var string
    */
@@ -463,8 +480,8 @@ class SearchApiQuery implements SearchApiQueryInterface {
     );
     $modes['terms'] = array(
       'name' => t('Multiple terms'),
-      'description' => t('The query is interpreted as multiple keywords seperated by spaces. ' .
-          'Keywords containing spaces may be "quoted". Quoted keywords must still be seperated by spaces.'),
+      'description' => t('The query is interpreted as multiple keywords separated by spaces. ' .
+          'Keywords containing spaces may be "quoted". Quoted keywords must still be separated by spaces.'),
     );
     // @todo Add fourth mode for complicated expressions, e.g.: »"vanilla ice" OR (love NOT hate)«
     return $modes;
@@ -583,6 +600,10 @@ class SearchApiQuery implements SearchApiQueryInterface {
       'search_api_relevance' => array('type' => 'decimal'),
       'search_api_id' => array('type' => 'integer'),
     );
+    if ($this->getIndex()->server()->supportsFeature('search_api_random_sort')) {
+      $fields['search_api_random'] = array('type' => 'integer');
+    }
+
     if (empty($fields[$field])) {
       throw new SearchApiException(t('Trying to sort on unknown field @field.', array('@field' => $field)));
     }
@@ -717,6 +738,9 @@ class SearchApiQuery implements SearchApiQueryInterface {
   public function postExecute(array &$results) {
     // Postprocess results.
     $this->index->postprocessSearchResults($results, $this);
+
+    // Let modules alter the results.
+    drupal_alter('search_api_results', $results, $this);
   }
 
   /**
@@ -811,6 +835,54 @@ class SearchApiQuery implements SearchApiQueryInterface {
     $this->filter = clone $this->filter;
   }
 
+  /**
+   * Implements the magic __toString() method to simplify debugging.
+   */
+  public function __toString() {
+    $ret = 'Index: ' . $this->index->machine_name . "\n";
+    $ret .= 'Keys: ' . str_replace("\n", "\n  ", var_export($this->orig_keys, TRUE)) . "\n";
+    if (isset($this->keys)) {
+      $ret .= 'Parsed keys: ' . str_replace("\n", "\n  ", var_export($this->keys, TRUE)) . "\n";
+      $ret .= 'Searched fields: ' . (isset($this->fields) ? implode(', ', $this->fields) : '[ALL]') . "\n";
+    }
+    if ($filter = (string) $this->filter) {
+      $filter = str_replace("\n", "\n  ", $filter);
+      $ret .= "Filters:\n  $filter\n";
+    }
+    if ($this->sort) {
+      $sort = array();
+      foreach ($this->sort as $field => $order) {
+        $sort[] = "$field $order";
+      }
+      $ret .= 'Sorting: ' . implode(', ', $sort) . "\n";
+    }
+    $options = $this->sanitizeOptions($this->options);
+    $options = str_replace("\n", "\n  ", var_export($options, TRUE));
+    $ret .= 'Options: ' . $options . "\n";
+    return $ret;
+  }
+
+  /**
+   * Sanitizes an array of options in a way that plays nice with var_export().
+   *
+   * @param array $options
+   *   An array of options.
+   *
+   * @return array
+   *   The sanitized options.
+   */
+  protected function sanitizeOptions(array $options) {
+    foreach ($options as $key => $value) {
+      if (is_object($value)) {
+        $options[$key] = 'object (' . get_class($value) . ')';
+      }
+      elseif (is_array($value)) {
+        $options[$key] = $this->sanitizeOptions($value);
+      }
+    }
+    return $options;
+  }
+
 }
 
 /**
@@ -890,8 +962,11 @@ interface SearchApiQueryFilterInterface {
    * Return all conditions and nested filters contained in this filter.
    *
    * @return array
-   *   An array containing this filter's subfilters. Each of these is either an
-   *   array (field, value, operator), or another SearchApiFilter object.
+   *   An array containing this filter's subfilters. Each of these is either a
+   *   condition, represented as a numerically indexed array with the arguments
+   *   of a previous SearchApiQueryFilterInterface::condition() call (field,
+   *   value, operator); or a nested filter, represented by a
+   *   SearchApiQueryFilterInterface filter object.
    */
   public function &getFilters();
 
@@ -996,6 +1071,10 @@ class SearchApiQueryFilter implements SearchApiQueryFilterInterface {
    * {@inheritdoc}
    */
   public function &getTags() {
+    // Tags can sometimes be NULL for old serialized query filter objects.
+    if (!isset($this->tags)) {
+      $this->tags = array();
+    }
     return $this->tags;
   }
 
@@ -1008,6 +1087,26 @@ class SearchApiQueryFilter implements SearchApiQueryFilterInterface {
         $this->filters[$i] = clone $filter;
       }
     }
+  }
+
+  /**
+   * Implements the magic __toString() method to simplify debugging.
+   */
+  public function __toString() {
+    // Special case for a single, nested filter:
+    if (count($this->filters) == 1 && is_object($this->filters[0])) {
+      return (string) $this->filters[0];
+    }
+    $ret = array();
+    foreach ($this->filters as $filter) {
+      if (is_object($filter)) {
+        $ret[] = "[\n  " . str_replace("\n", "\n    ", (string) $filter) . "\n  ]";
+      }
+      else {
+        $ret[] = "$filter[0] $filter[2] " . str_replace("\n", "\n    ", var_export($filter[1], TRUE));
+      }
+    }
+    return $ret ? '  ' . implode("\n{$this->conjunction}\n  ", $ret) : '';
   }
 
 }

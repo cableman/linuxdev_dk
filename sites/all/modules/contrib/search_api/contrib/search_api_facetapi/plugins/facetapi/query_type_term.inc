@@ -30,7 +30,7 @@ class SearchApiFacetapiTerm extends FacetapiQueryType implements FacetapiQueryTy
     // Return terms for this facet.
     $this->adapter->addFacet($this->facet, $query);
 
-    $settings = $this->adapter->getFacet($this->facet)->getSettings()->settings;
+    $settings = $this->getSettings()->settings;
 
     // First check if the facet is enabled for this search.
     $default_true = isset($settings['default_true']) ? $settings['default_true'] : TRUE;
@@ -54,9 +54,41 @@ class SearchApiFacetapiTerm extends FacetapiQueryType implements FacetapiQueryTy
     }
     elseif ($operator == FACETAPI_OPERATOR_OR) {
       $conjunction = 'OR';
+      // When the operator is OR, remove parent terms from the active ones if
+      // children are active. If we don't do this, sending a term and its
+      // parent will produce the same results as just sending the parent.
+      if (is_callable($this->facet['hierarchy callback']) && !$settings['flatten']) {
+        // Check the filters in reverse order, to avoid checking parents that
+        // will afterwards be removed anyways.
+        $values = array_keys($active);
+        $parents = call_user_func($this->facet['hierarchy callback'], $values);
+        foreach (array_reverse($values) as $filter) {
+          // Skip this filter if it was already removed, or if it is the
+          // "missing value" filter ("!").
+          if (!isset($active[$filter]) || !is_numeric($filter)) {
+            continue;
+          }
+          // Go through the entire hierarchy of the value and remove all its
+          // ancestors.
+          while (!empty($parents[$filter])) {
+            $ancestor = array_shift($parents[$filter]);
+            if (isset($active[$ancestor])) {
+              unset($active[$ancestor]);
+              if (!empty($parents[$ancestor])) {
+                $parents[$filter] = array_merge($parents[$filter], $parents[$ancestor]);
+              }
+            }
+          }
+        }
+      }
     }
     else {
-      throw new SearchApiException(t('Unknown facet operator %operator.', array('%operator' => $operator)));
+      $vars = array(
+        '%operator' => $operator,
+        '%facet' => !empty($this->facet['label']) ? $this->facet['label'] : $this->facet['name'],
+      );
+      watchdog('search_api_facetapi', 'Unknown facet operator %operator used for facet %facet.', $vars, WATCHDOG_WARNING);
+      return;
     }
     $tags = array('facet:' . $this->facet['field']);
     $facet_filter = $query->createFilter($conjunction, $tags);
@@ -77,7 +109,7 @@ class SearchApiFacetapiTerm extends FacetapiQueryType implements FacetapiQueryTy
     // Test if this filter should be negated.
     $settings = $this->adapter->getFacet($this->facet)->getSettings();
     $exclude = !empty($settings->settings['exclude']);
-    // Integer (or other nun-string) filters might mess up some of the following
+    // Integer (or other non-string) filters might mess up some of the following
     // comparison expressions.
     $filter = (string) $filter;
     if ($filter == '!') {
@@ -139,13 +171,20 @@ class SearchApiFacetapiTerm extends FacetapiQueryType implements FacetapiQueryTy
     // initActiveFilters) so that we can retrieve it here and get the correct
     // current search for this facet.
     $search_ids = drupal_static('search_api_facetapi_active_facets', array());
-    if (empty($search_ids[$facet['name']]) || !search_api_current_search($search_ids[$facet['name']])) {
+    $facet_key = $facet['name'] . '@' . $this->adapter->getSearcher();
+    if (empty($search_ids[$facet_key]) || !search_api_current_search($search_ids[$facet_key])) {
       return array();
     }
-    $search_id = $search_ids[$facet['name']];
-    $search = search_api_current_search($search_id);
+    $search_id = $search_ids[$facet_key];
+    list(, $results) = search_api_current_search($search_id);
     $build = array();
-    $results = $search[1];
+
+    // Always include the active facet items.
+    foreach ($this->adapter->getActiveItems($this->facet) as $filter)  {
+      $build[$filter['value']]['#count'] = 0;
+    }
+
+    // Then, add the facets returned by the server.
     if (isset($results['search_api_facets']) && isset($results['search_api_facets'][$this->facet['name']])) {
       $values = $results['search_api_facets'][$this->facet['name']];
       foreach ($values as $value) {

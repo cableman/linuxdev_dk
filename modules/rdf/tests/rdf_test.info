@@ -4,9 +4,10 @@ package = Testing
 version = VERSION
 core = 7.x
 hidden = TRUE
+dependencies[] = blog
 
-; Information added by Drupal.org packaging script on 2014-01-15
-version = "7.26"
+; Information added by Drupal.org packaging script on 2017-06-21
+version = "7.56"
 project = "drupal"
-datestamp = "1389815930"
+datestamp = "1498069849"
 

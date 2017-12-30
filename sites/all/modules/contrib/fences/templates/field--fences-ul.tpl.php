@@ -6,7 +6,6 @@
  * @see http://developers.whatwg.org/grouping-content.html#the-ul-element
  */
 ?>
-
 <?php if ($element['#label_display'] == 'inline'): ?>
   <span class="field-label"<?php print $title_attributes; ?>>
     <?php print $label; ?>:
@@ -24,4 +23,5 @@
       <?php print render($item); ?>
     </li>
   <?php endforeach; ?>
+
 </ul>

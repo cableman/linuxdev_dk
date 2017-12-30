@@ -136,7 +136,7 @@ function mollom_flag_entity_view_prerender($element) {
  * @param $source
  *   The optional internal source to be submitted along with feedback.
  */
-function mollom_flag($type, $entity, $id, $source = NULL) {
+function _mollom_flag($type, $entity, $id, $source = NULL) {
   $detail = FALSE;
   if ($type === 'nojs' || $_SERVER['REQUEST_METHOD'] !== 'POST') {
     $detail = TRUE;
@@ -213,7 +213,7 @@ function mollom_flag_reason_form($form, &$form_state, $entity, $id, $detail, $so
       '#tree' => TRUE,
     );
     $form['detailset']['detail'] = array(
-      '#markup' => '<div class="mollom-report-content">' . $entity_subject . '</div>',
+      '#markup' => '<div class="mollom-report-content">' . filter_xss($entity_subject) . '</div>',
     );
   }
 
@@ -575,7 +575,7 @@ function mollom_flag_details($type, $entity, $id) {
 
     $output = '<fieldset>';
     $output .= '<legend>' . t('Flagged: ') . $entity . '</legend>';
-    $output .= '<div class="fieldset-wrapper">' . $entity_subject . '</div>';
+    $output .= '<div class="fieldset-wrapper">' . filter_xss($entity_subject) . '</div>';
     $output .= '</fieldset>';
     $output .= theme('item_list', array(
       'type' => 'ul',

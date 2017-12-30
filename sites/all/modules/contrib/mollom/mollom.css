@@ -1,4 +1,4 @@
-
+.mollom-captcha-container span,
 #edit-mollom-captcha {
   display: block;
 }
@@ -17,4 +17,16 @@
 /* Accessibilty focus helper for audio CAPTCHA. */
 .mollom_captcha_flash_player:focus{
     border: yellow 2px solid;
+}
+
+/* Refresh CAPTCHA icon */
+.mollom-captcha-container {
+  display: inline-block;
+  position: relative;
+}
+.mollom-captcha-container .mollom-refresh-captcha {
+  position: absolute;
+}
+.mollom-captcha-container .mollom-captcha-content {
+  padding-left: 20px;
 }
