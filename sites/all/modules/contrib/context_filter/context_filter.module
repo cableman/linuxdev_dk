@@ -1,0 +1,222 @@
+<?php
+
+
+/**
+ * Implements hook_permission().
+ */
+function context_filter_permission() {
+  return array(
+    'administer context filter' => array(
+      'title' => t('Set globle dynamic backgrounds'),
+    ),
+    'administer context filter regions' => array(
+      'title' => t('Administer Context filter regions.'),
+    ),
+    'administer context filter names' => array(
+      'title' => t('Administer Context filter names.'),
+    ),
+    'context filter toggle regions' => array(
+      'title' => t('Allow users to toggle empty regions in the toolbar.'),
+    ),
+    'context filter create context' => array(
+      'title' => t('Allow users to create contexts base on current path.'),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_menu, which sets the path admin/build/context/filter
+ * for administrate the selections.
+ *
+ * @return array $items
+ */
+function context_filter_menu() {
+  $items = array();
+  $items['admin/structure/context/filter'] = array(
+    'title' => 'Context filter',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('context_filter_admin_form'),
+    'description' => 'Select which options should be avaliable in the context drop-down based on modules.',
+    'type' => MENU_LOCAL_TASK,
+    'access arguments' => array('administer context filter'),
+    'file' => 'includes/context_filter.admin.inc',
+  );
+
+  $items['admin/structure/context/filter/groups'] = array(
+    'title' => 'Groups',
+    'description' => 'Select which options should be avaliable in the context drop-down based on modules.',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => 1,
+  );
+
+  $items['admin/structure/context/filter/names'] = array(
+    'title' => 'Names',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('context_filter_names_admin_form'),
+    'description' => 'Change the group names of the items in the context drop-down.',
+    'access arguments' => array('administer context filter names'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 2,
+    'file' => 'includes/context_filter.admin.inc',
+  );
+
+  // Menu callback to toggle empty regions.
+  $items['context_filter/regions'] = array(
+    'title' => 'Toggle regions',
+    'page callback' => 'context_filter_toggle_empty_regions',
+    'access arguments' => array('context filter toggle regions'),
+    'type' => MENU_CALLBACK,
+  );
+
+  // Menu callback to create context for the current path.
+  $items['context_filter/create'] = array(
+    'title' => 'Create context',
+    'page callback' => 'context_filter_create_context',
+    'access arguments' => array('context filter create context'),
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Override "Context" preprocess function to limit the selections.
+ *
+ * @param array $vars
+ */
+function context_filter_preprocess_context_block_browser(&$vars) {
+  // Load selected modules list
+  $selected = array_filter(variable_get('context_filter_block_types', array()));
+
+  // Only change the list, if selections have be made in the admin interface
+  if (!empty($selected)) {
+    // Update names.
+    $names = variable_get('context_filter_names', array());
+    foreach ($selected as $key => $value) {
+        $group = $key;
+        // Normalize the $group, borrowed from drupal_html_id
+        $group = strtr(drupal_strtolower($group), array(' ' => '-', '_' => '-', '[' => '-', ']' => ''));
+        $categories[$group] = isset($names[$key]) ? $names[$key] : $value;
+    }
+    // Only display selected modules
+    $vars['categories']['#options'] = array_merge(array(0 => '<'. t('Choose a category') .'>'), $categories);
+  }
+  else {
+    drupal_set_message(t('You have not yet configured "Context filter". Click <a href="@link">here</a> to configure it.',
+            array('@link' => url('admin/structure/context/filter'))));
+  }
+}
+
+/**
+ * Filter editable regions for the current theme by using preprocess functions.
+ *
+ * @global string $theme_key
+ * @param array $vars
+ */
+function context_filter_preprocess_context_block_editable_region(&$vars) {
+  if (!empty($vars['editable'])) {
+    // Get current theme name and regions
+    global $theme_key;
+    $regions = system_region_list($theme_key);
+
+    // Load context filter enabled regions
+    $editable_regions = variable_get('context_filter_regions_' . $theme_key, NULL);
+
+    if (isset($editable_regions)) {
+      $editable_regions = array_filter($editable_regions['enabled_regions']);
+
+      if (!in_array($vars['region'], $editable_regions)) {
+        $vars['editable'] = false;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_page_build().
+ *
+ * Adds extra links to show/hidden empty regions and create context for current
+ * page to shortcut bar.
+ */
+function context_filter_page_build(&$page) {
+  $settings = array();
+
+  // Add show/hide empty regions to shortcut bar.
+  if (user_access('context filter toggle regions')) {    
+    // Add current region state.
+    $settings['isShown'] = variable_get('context_reaction_block_all_regions', FALSE);
+    
+    // Add script to add button to the toolbar.
+    drupal_add_js(drupal_get_path('module', 'context_filter') . '/js/context_filter_show_regions.js', array('preprocess' => FALSE));
+  }
+
+  // Add create context to shortcut bar.
+  if (user_access('context filter create context')) {
+    // Add current path region state.
+    $settings['currentPath'] = drupal_get_path_alias();
+    $context_name = explode('/', $settings['currentPath']);
+    $context_name = array_pop($context_name);
+    $contexts = context_active_contexts();
+
+    // Only show create context link if context is not yet defined for the
+    // current page.
+    if (!isset($contexts[$context_name])) {
+      drupal_add_js(drupal_get_path('module', 'context_filter') . '/js/context_filter_create_context.js', array('preprocess' => FALSE));
+    }
+  }
+
+  if (!empty($settings)) {
+    drupal_add_js(array('context_filter' => $settings), 'setting');
+    drupal_add_css(drupal_get_path('module', 'context_filter') . '/css/context_filter.css', array('preprocess' => FALSE));
+  }
+}
+
+/**
+ * Menu callback that toggles contexts show/hide empty regions.
+ */
+function context_filter_toggle_empty_regions() {
+  $current = variable_get('context_reaction_block_all_regions', FALSE);
+  if ($current) {
+    $current = FALSE;
+  }
+  else {
+    $current = TRUE;
+  }
+  variable_set('context_reaction_block_all_regions', $current);
+}
+
+/**
+ * Menu callback thats creates a new context based on current page.
+ */
+function context_filter_create_context() {
+  // Validate the path.
+  $path = check_plain($_GET['path']);
+  $name = array_pop(explode('/', $path));
+
+  if ($system_path = drupal_lookup_path('source', $path)) {
+    $path = $system_path;
+  }
+
+  // Create the new context based on path.
+  $context = ctools_export_new_object('context', TRUE);
+  $context->name = $name;
+  $context->description = t('Current page');
+  $context->tag = 'Current page';
+  $context->condition_mode = NULL;
+  $context->conditions = array(
+    'path' => array(
+      'values' => array(
+        $path,
+      )
+    )
+  );
+  $context->reactions = array();
+  $context->type = 'Local';
+  ctools_export_crud_save('context', $context);
+
+  // Clear context cache, so the new context shows up on page reload.
+  context_invalidate_cache();
+
+  // Set message that will be show after reload.
+  drupal_set_message(t('A new context for the current page have been created.'));
+}
