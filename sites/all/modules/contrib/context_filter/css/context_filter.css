@@ -1,0 +1,13 @@
+#toolbar .context-filter-links {
+  float: right;
+  padding: 5px 10px 5px 5px;
+  line-height: 24px;
+  color: #FEFEFE;
+}
+
+#toolbar a.context-filter-links:focus,
+#toolbar a.context-filter-links:hover {
+  color: #FFF;
+  text-decoration: underline;
+
+}
