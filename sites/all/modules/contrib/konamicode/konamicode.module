@@ -10,9 +10,9 @@
 function konamicode_help($path, $arg) {
   switch ($path) {
     case 'admin/help#konamicode':
-      return '<p>' . t('The <a href="@konamicode">Konami Code</a> is a cheat code that appeared in many Konami video games. The Konami Code module makes it so that when users enter the code on your website, it redirects them to a given page. This mimics the effects that exist on many other <a href="@konamicodesites">Konami Code sites</a>.', array('@konamicode' => 'http://en.wikipedia.org/wiki/Konami_code', '@konamicodesites' => 'http://konamicodesites.com')) . '</p>';
+      return '<p>' . t('The <a href="@konamicode">Konami Code</a> is a cheat code that appeared in many Konami video games. The Konami Code module makes it so that when users enter the code on your website, it redirects them to a given page. This mimics the effects that exist on many other <a href="@konamicodesites">Konami Code sites</a>.', array('@konamicode' => 'https://www.drupal.org/docs/8/modules/konami-code/general-information-and-history', '@konamicodesites' => 'https://www.drupal.org/docs/8/modules/konami-code/websites-using-konami-code')) . '</p>';
     case 'admin/config/system/konamicode':
-      return '<p>' . t('Set up certain actions to be taken when specific codes are entered. One example is to attack the user with images when the <a href="@konamicode">Konami Code</a> is entered. Select which actions you would like to have occur, what key codes they require, as well as the configuration options for each action.', array('@konamicode' => 'http://en.wikipedia.org/wiki/Konami_code')) . '</p>';
+      return '<p>' . t('Set up certain actions to be taken when specific codes are entered. One example is to attack the user with images when the <a href="@konamicode">Konami Code</a> is entered. Select which actions you would like to have occur, what key codes they require, as well as the configuration options for each action.', array('@konamicode' => 'https://www.drupal.org/docs/8/modules/konami-code/general-information-and-history')) . '</p>';
   }
 }
 
@@ -125,6 +125,12 @@ function konamicode_konamicode() {
 
     // https://github.com/loktar00/JQuery-Snowfall
     'snowfall' => t('Snowfall'),
+
+    // http://www.youtube.com/watch?v=y1x_jq1YTBA
+    'gg' => t('GG'),
+    
+    // https://github.com/panzi/Browser-Ponies
+    'browserponies' => t('Browser Ponies'),
   );
 }
 
@@ -133,8 +139,8 @@ function konamicode_konamicode() {
  */
 function konamicode_konamicode_imageattack() {
   // Add the image only if it's not the default.
-  $image = variable_get('konamicode_imageattack', 'http://drupal.org/files/druplicon.small_.png');
-  if (!empty($image) && $image != 'http://drupal.org/files/druplicon.small_.png') {
+  $image = variable_get('konamicode_imageattack', 'https://drupal.org/files/druplicon-small.png');
+  if (!empty($image) && $image != 'https://drupal.org/files/druplicon-small.png') {
     drupal_add_js(array('konamicodeImages' => explode("\n", $image)), array('type' => 'setting', 'scope' => JS_DEFAULT));
   }
   // Amount of images to display during an attack.
@@ -152,8 +158,8 @@ function konamicode_konamicode_imageattack() {
  */
 function konamicode_konamicode_redirect() {
   // Add the destination only if it's not the default.
-  $destination = variable_get('konamicode_destination', 'http://bacolicio.us/http://' . $_SERVER['SERVER_NAME'] . base_path());
-  if (!empty($destination) && $destination != 'http://bacolicio.us/http://' . $_SERVER['SERVER_NAME'] . base_path()) {
+  $destination = variable_get('konamicode_destination', 'https://youtu.be/dQw4w9WgXcQ');
+  if (!empty($destination) && $destination != 'https://youtu.be/dQw4w9WgXcQ') {
     drupal_add_js(array('konamicodeDestination' => $destination), array('type' => 'setting', 'scope' => JS_DEFAULT));
   }
 }
@@ -216,3 +222,46 @@ function konamicode_konamicode_snowfall() {
   drupal_add_js($settings, array('type' => 'setting', 'scope' => JS_DEFAULT));
 }
 
+/**
+ * Implements hook_konamicode_GG().
+ */
+function konamicode_konamicode_gg() {
+  $settings = array(
+    'gg' => drupal_get_path('module', 'konamicode'),
+  );
+  drupal_add_js($settings, array('type' => 'setting', 'scope' => JS_DEFAULT));
+}
+
+/**
+ * Implements hook_konamicode_BROWSERPONIES().
+ */
+function konamicode_konamicode_browserponies() {
+  global $base_url;
+  $path = variable_get('konamicode_browserponies_baseurl', 'https://panzi.github.io/Browser-Ponies');
+  $settings = array(
+    'browserponies' => array(
+      'browserponies' => drupal_get_path('module', 'konamicode'),
+      'baseurl' => $path . '/',
+      'fadeDuration' => (int)variable_get('konamicode_browserponies_fadeDuration', 500),
+      'volume' => (int)variable_get('konamicode_browserponies_volume', 1),
+      'fps' => (int)variable_get('konamicode_browserponies_fps', 25),
+      'speed' => (int)variable_get('konamicode_browserponies_speed', 3),
+      'audioEnabled' => variable_get('konamicode_browserponies_audioEnabled', false),
+      'showFps' => variable_get('konamicode_browserponies_showFps', false),
+      'showLoadProgress' => variable_get('konamicode_browserponies_showLoadProgress', true),
+      'speakProbability' => (int)variable_get('konamicode_browserponies_speakProbability', 0.1),
+      'spawn' => array(
+        'applejack' => (int)variable_get('konamicode_browserponies_applejack', 1),
+        'fluttershy' => (int)variable_get('konamicode_browserponies_fluttershy', 1),
+        'pinkie pie' => (int)variable_get('konamicode_browserponies_pinkiepie', 1),
+        'rainbow dash' => (int)variable_get('konamicode_browserponies_rainbowdash', 1),
+        'rarity' => (int)variable_get('konamicode_browserponies_rarity', 1),
+        'twilight sparkle' => (int)variable_get('konamicode_browserponies_twilightsparkle', 1),
+      ),
+      'autostart' => variable_get('konamicode_browserponies_autostart', true),
+    ),
+  );
+  drupal_add_js($settings, array('type' => 'setting', 'scope' => JS_DEFAULT));
+  drupal_add_js($path . '/basecfg.js', 'file');  
+  drupal_add_js($path . '/browserponies.js', 'file');
+}
