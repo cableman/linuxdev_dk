@@ -1,21 +1,3 @@
-/**
- * Konami Code jQuery Plugin
- * Author: Rob Loach
- *
- *            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
- *                    Version 2, December 2004
- *
- * Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
- *
- * Everyone is permitted to copy and distribute verbatim or modified
- * copies of this license document, and changing it is allowed as long
- * as the name is changed.
- *
- *            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
- *   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
- *
- * 0. You just DO WHAT THE FUCK YOU WANT TO.
- */
 (function($) {
   var konamiListeners = [];
   var progress = [];
@@ -84,7 +66,7 @@ Drupal.konamicode_imageattack = function() {
   // inside the window area and does not cause it to scroll.
   var width = jQuery(document).width() - 175;
   var height = jQuery(document).height() - 200;
-  Drupal.konamicode_imageattackimages = Drupal.settings.konamicodeImages || ['http://drupal.org/files/druplicon.small_.png'];
+  Drupal.konamicode_imageattackimages = Drupal.settings.konamicodeImages || ['https://drupal.org/files/druplicon-small.png'];
   // Select a random image.
   var max = Drupal.settings.konamicodeImagesMax || 500;
   var count = 0;
@@ -114,14 +96,14 @@ function konamiCodeSpawnImage(width, height, max, count) {
  * The Redirect Konami Code action.
  */
 Drupal.konamicode_redirect = function() {
-  window.location = Drupal.settings.konamicodeDestination || 'http://bacolicio.us/' + window.location;
+  window.location = Drupal.settings.konamicodeDestination || 'https://youtu.be/dQw4w9WgXcQ';
 };
 
 /**
  * The Alert Konami Code action.
  */
 Drupal.konamicode_alert = function() {
-  alert(Drupal.settings.konamicodeAlert || Drupal.t('Konami Code is geek!'));
+  alert(Drupal.settings.konamicodeAlert || Drupal.t('Konami Code Is Geek!'));
 };
 
 /**
@@ -135,7 +117,7 @@ Drupal.konamicode_fliptext = function() {
  * The Cornify Konami Code action.
  */
 Drupal.konamicode_cornify = function() {
-  jQuery.getScript('http://www.cornify.com/js/cornify.js', function(data, textStatus) {
+  jQuery.getScript('https://www.cornify.com/js/cornify.js', function(data, textStatus) {
     cornify_add();
   });
 };
@@ -145,7 +127,7 @@ Drupal.konamicode_cornify = function() {
  */
 Drupal.konamicode_geocitiesizer = function() {
   var theme = Drupal.settings.konamicodeGeo || 0;
-  if (theme != 0) {
+  if (theme !== 0) {
     theme = '&theme=' + theme;
   }
   else {
@@ -158,7 +140,8 @@ Drupal.konamicode_geocitiesizer = function() {
  * The Asteroids Konami Code action.
  */
 Drupal.konamicode_asteroids = function() {
-  jQuery.getScript('http://erkie.github.com/asteroids.min.js');
+  // Or: https://cdn.jsdelivr.net/gh/erkie/erkie.github.com/asteroids.js.
+  jQuery.getScript('https://hi.kickassapp.com/kickass.js');
 };
 
 /**
@@ -168,7 +151,7 @@ Drupal.konamicode_placekitten = function() {
   jQuery('img').each(function() {
     var w = jQuery(this).width();
     var h = jQuery(this).height();
-    jQuery(this).attr('src', 'http://placekitten.com/' + w + '/' + h);
+    jQuery(this).attr('src', 'https://placekitten.com/' + w + '/' + h);
   });
 };
 
@@ -190,7 +173,8 @@ Drupal.konamicode_raptorize = function() {
  * The Katamari Hack Konami Code action.
  */
 Drupal.konamicode_katamari = function() {
-  jQuery.getScript('http://kathack.com/js/kh.js');
+  //jQuery.getScript('http://kathack.com/js/kh.js');
+  jQuery.getScript('https://cdn.jsdelivr.net/gh/seancron/kathack/kh.js');
 };
 
 /**
@@ -205,3 +189,32 @@ Drupal.konamicode_snowfall = function() {
   });
 };
 
+/**
+ * The Snowfall Konami Code action.
+ */
+Drupal.konamicode_gg = function() {
+  // Only add the Konami Code GG once.
+  if (jQuery('#konamicode-gg').length == 0) {
+    var path = Drupal.settings.basePath + Drupal.settings.gg + '/gg/gg.';
+    var extension = ['ogg', 'mp3', 'wav'];
+    var markup = '<audio id="konamicode-gg" preload="auto">';
+    for (var i = 0; i < 3; i++) {
+      markup = markup + '<source src="' + path + extension[i] + '" />';
+    }
+    markup = markup + '</audio>';
+    jQuery('body').append(markup);
+  }
+  jQuery('#konamicode-gg')[0].play();
+};
+
+/**
+ * The Browser Ponies Code action.
+ */
+Drupal.konamicode_browserponies = function() {
+  (function (config) {
+    BrowserPonies.setBaseUrl(Drupal.settings.browserponies.baseurl);
+    BrowserPonies.loadConfig(BrowserPoniesBaseConfig);
+    BrowserPonies.loadConfig(config);
+  })
+  (Drupal.settings.browserponies);
+};

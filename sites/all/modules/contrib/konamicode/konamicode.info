@@ -8,9 +8,8 @@ files[] = konamicode.module
 
 configure = admin/config/system/konamicode
 
-; Information added by drupal.org packaging script on 2011-12-23
-version = "7.x-1.7"
+; Information added by Drupal.org packaging script on 2018-11-16
+version = "7.x-1.8"
 core = "7.x"
 project = "konamicode"
-datestamp = "1324670744"
-
+datestamp = "1542375793"
