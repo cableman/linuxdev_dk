@@ -362,7 +362,7 @@ function file_entity_admin_files() {
       $count_query = db_select('file_usage', 'fu')
         ->fields('fu', array('fid', 'count'))
         ->condition('fu.fid', $file_result->fid, '=');
-      $count_query->addExpression('SUM(fu.count)', 'total_count');
+      $count_query->addExpression('fu.count', 'total_count');
       $count_result = $count_query->execute()->fetchAll();
 
       if (!empty($count_result[0]->total_count)) {
@@ -612,6 +612,7 @@ function file_entity_list_types_page() {
     switch ($type->ctools_type) {
       // Configuration is in code.
       case 'Default':
+      case t('Default'):
         if (!empty($type->disabled)) {
           $row[] = l(t('enable'), $admin_path . '/enable');
         }
@@ -622,6 +623,7 @@ function file_entity_list_types_page() {
 
       // Configuration is in DB.
       case 'Normal':
+      case t('Normal'):
         if (!empty($type->disabled)) {
           $status = l(t('enable'), $admin_path . '/enable');
         }
@@ -633,6 +635,7 @@ function file_entity_list_types_page() {
 
       // Configuration is in code, but overridden in DB.
       case 'Overridden':
+      case t('Overridden'):
         if (!empty($type->disabled)) {
           $row[] = l(t('enable'), $admin_path . '/enable');
         }
@@ -1109,6 +1112,15 @@ function file_entity_settings_form($form, &$form_state) {
     '#maxlength' => NULL,
   );
 
+  $form['file_entity_max_filesize_extensions'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Maximum upload size per extension'),
+    '#default_value' => variable_get('file_entity_max_filesize_extensions', ''),
+    '#description' => t('Set the maximum filesize for specific extensions. Enter one value per line, in the format <strong>extension|filesize</strong>. When an extension does not have a file size limit, the default maximum file size is used.'),
+    '#rows' => 10,
+    '#element_validate' => array('file_entity_max_filesize_extensions_validate'),
+  );
+
   $form['file_entity_alt'] = array(
     '#type' => 'textfield',
     '#title' => t('Alt attribute'),
@@ -1157,6 +1169,55 @@ function file_entity_settings_form($form, &$form_state) {
     '#default_value' => variable_get('file_entity_file_upload_wizard_skip_fields', FALSE),
     '#description' => t('The field selection step is only available if the file type the file belongs to has any available fields. If this step is skipped, any fields on the file will be left blank.'),
   );
+  $form['file_replace_options'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('File replace optons'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+    '#description' => t('Default settings for how to handle file name changes during replace.'),
+  );
+  $form['file_replace_options']['file_entity_file_replace_options_keep_original_filename'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Keep original file name'),
+    '#default_value' => variable_get('file_entity_file_replace_options_keep_original_filename', FALSE),
+    '#description' => t('Rename the newly uploaded file to the name of the original file. This action cannot be undone.'),
+  );
+
+  $form['file_entity_protect_repeated_render'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Protect against repeat rendering'),
+    '#default_value' => variable_get('file_entity_protect_repeated_render', TRUE),
+    '#description' => t('Avoid rendering the same entity more than 20 times. This can be a sign of an image entity getting caught in a recursive render, but it can also be triggered when the same image is rendered more than 20 times, e.g. in an long content list or data feed.'),
+  );
 
   return system_settings_form($form);
+}
+
+/**
+ * Element validate callback for the maximum upload size / file extension field.
+ * Only validates non-empty values.
+ */
+function file_entity_max_filesize_extensions_validate($element, &$form_state) {
+  $list = explode("\n", $element['#value']);
+
+  foreach ($list as $position => $text) {
+    $matches = array();
+    preg_match('/(.*)\|(.*)/', $text, $matches);
+
+    if (isset($matches[1]) && isset($matches[2]) && !empty($matches[1]) && !empty($matches[2])) {
+      // Only validate non-empty values.
+      $extension = $matches[1];
+      $filesize = $matches[2];
+
+      //Validate filesize.
+      $element['#value'] = $filesize;
+      _file_generic_settings_max_filesize($element, $form_state);
+
+      //Validate extension.
+      $extensions = explode(' ', $form_state['input']['file_entity_default_allowed_extensions']);
+      if (!in_array($extension, $extensions)) {
+        form_error($element, t('"!extension" was not found in the list of allowed extensions.', array('!extension' => $extension)));
+      }
+    }
+  }
 }

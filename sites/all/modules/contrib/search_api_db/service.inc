@@ -174,6 +174,7 @@ class SearchApiDbService extends SearchApiAbstractService {
   public function supportsFeature($feature) {
     $supported = array(
       'search_api_autocomplete' => TRUE,
+      'search_api_between' => TRUE,
       'search_api_facets' => TRUE,
       'search_api_facets_operator_or' => TRUE,
       'search_api_random_sort' => TRUE,
@@ -890,21 +891,23 @@ class SearchApiDbService extends SearchApiAbstractService {
             // at 500 words and 0.3 at 1000 words.
             $focus = min(1, .01 + 3.5 / (2 + count($words) * .015));
 
-            $value = &$token['value'];
-            if (is_numeric($value)) {
-              $value = ltrim($value, '-0');
+            $token_value = &$token['value'];
+            $token_value = trim(preg_replace('/[\pZ\pC]+/u', ' ', $token_value));
+            if (is_numeric($token_value)) {
+              $token_value = ltrim($token_value, '-0');
             }
-            elseif (drupal_strlen($value) < $this->options['min_chars']) {
+            elseif (drupal_strlen($token_value) < $this->options['min_chars']) {
               continue;
             }
-            $value = drupal_strtolower($value);
+            $token_value = drupal_strtolower($token_value);
             $token['score'] *= $focus;
-            if (!isset($words[$value])) {
-              $words[$value] = $token;
+            if (!isset($words[$token_value])) {
+              $words[$token_value] = $token;
             }
             else {
-              $words[$value]['score'] += $token['score'];
+              $words[$token_value]['score'] += $token['score'];
             }
+            unset($token_value);
           }
           if ($words) {
             $field_name = self::getTextFieldName($name);
@@ -1112,6 +1115,11 @@ class SearchApiDbService extends SearchApiAbstractService {
         return 0 + $value;
 
       case 'boolean':
+        // Numeric strings need to be converted to a numeric type before
+        // converting to a boolean, as strings like '0.00' evaluate to TRUE.
+        if (is_string($value) && is_numeric($value)) {
+          $value = 0 + $value;
+        }
         return $value ? 1 : 0;
 
       case 'date':
@@ -1257,7 +1265,8 @@ class SearchApiDbService extends SearchApiAbstractService {
   protected function createDbQuery(SearchApiQueryInterface $query, array $fields) {
     $keys = &$query->getKeys();
     $keys_set = (boolean) $keys;
-    $keys = $this->prepareKeys($keys);
+    $tokenizer_active = static::isTokenizerActive($query->getIndex());
+    $keys = $this->prepareKeys($keys, $tokenizer_active);
     // Special case: if the outermost $keys array has "#negation" set, we can't
     // handle it like other negated subkeys. To avoid additional complexity
     // later, we just wrap $keys so it becomes a subkey.
@@ -1311,7 +1320,7 @@ class SearchApiDbService extends SearchApiAbstractService {
 
     $filter = $query->getFilter();
     if ($filter->getFilters()) {
-      $condition = $this->createFilterCondition($filter, $fields, $db_query);
+      $condition = $this->createFilterCondition($filter, $fields, $db_query, $query->getIndex());
       if ($condition) {
         $db_query->condition($condition);
       }
@@ -1335,24 +1344,28 @@ class SearchApiDbService extends SearchApiAbstractService {
    *
    * @param array|string|null $keys
    *   The keys which should be preprocessed.
+   * @param bool $tokenizer_active
+   *   (optional) TRUE if we can rely on the "Tokenizer" processor already
+   *   having preprocessed the keywords.
    *
    * @return array|string|null
    *   The preprocessed keys.
    */
-  protected function prepareKeys($keys) {
+  protected function prepareKeys($keys, $tokenizer_active = FALSE) {
     if (is_scalar($keys)) {
-      $keys = $this->splitKeys($keys);
+      $keys = $this->splitKeys($keys, $tokenizer_active);
       return is_array($keys) ? $this->eliminateDuplicates($keys) : $keys;
     }
     elseif (!$keys) {
       return NULL;
     }
-    $keys = $this->eliminateDuplicates($this->splitKeys($keys));
+    $keys = $this->splitKeys($keys, $tokenizer_active);
+    $keys = $this->eliminateDuplicates($keys);
     $conj = $keys['#conjunction'];
     $neg = !empty($keys['#negation']);
     foreach ($keys as $i => &$nested) {
       if (is_array($nested)) {
-        $nested = $this->prepareKeys($nested);
+        $nested = $this->prepareKeys($nested, $tokenizer_active);
         if (is_array($nested) && $neg == !empty($nested['#negation'])) {
           if ($nested['#conjunction'] == $conj) {
             unset($nested['#conjunction'], $nested['#negation']);
@@ -1384,11 +1397,14 @@ class SearchApiDbService extends SearchApiAbstractService {
    *
    * @param array|string|null $keys
    *   The keys to split.
+   * @param bool $tokenizer_active
+   *   (optional) TRUE if we can rely on the "Tokenizer" processor already
+   *   having preprocessed the keywords.
    *
    * @return array|string|null
    *   The keys split into separate words.
    */
-  protected function splitKeys($keys) {
+  protected function splitKeys($keys, $tokenizer_active = FALSE) {
     if (is_scalar($keys)) {
       $proc = drupal_strtolower(trim($keys));
       if (is_numeric($proc)) {
@@ -1398,9 +1414,16 @@ class SearchApiDbService extends SearchApiAbstractService {
         $this->ignored[$keys] = 1;
         return NULL;
       }
-      $words = preg_split('/[^\p{L}\p{N}]+/u', $proc, -1, PREG_SPLIT_NO_EMPTY);
+
+      if ($tokenizer_active) {
+        $words = array_filter(explode(' ', $proc), 'strlen');
+      }
+      else {
+        $words = preg_split('/[^\p{L}\p{N}]+/u', $proc, -1, PREG_SPLIT_NO_EMPTY);
+      }
+
       if (count($words) > 1) {
-        $proc = $this->splitKeys($words);
+        $proc = $this->splitKeys($words, $tokenizer_active);
         if ($proc) {
           $proc['#conjunction'] = 'AND';
         }
@@ -1412,7 +1435,7 @@ class SearchApiDbService extends SearchApiAbstractService {
     }
     foreach ($keys as $i => $key) {
       if (element_child($i)) {
-        $keys[$i] = $this->splitKeys($key);
+        $keys[$i] = $this->splitKeys($key, $tokenizer_active);
       }
     }
     return array_filter($keys);
@@ -1664,6 +1687,8 @@ class SearchApiDbService extends SearchApiAbstractService {
    *   Internal information about the index's fields.
    * @param SelectQueryInterface $db_query
    *   The database query to which the condition will be added.
+   * @param SearchApiIndex $index
+   *   (optional) The search index whose settings should be used.
    *
    * @return DatabaseCondition|null
    *   The condition to set on the query, or NULL if none is necessary.
@@ -1671,7 +1696,7 @@ class SearchApiDbService extends SearchApiAbstractService {
    * @throws SearchApiException
    *   If an unknown field was used in the filter.
    */
-  protected function createFilterCondition(SearchApiQueryFilterInterface $filter, array $fields, SelectQueryInterface $db_query) {
+  protected function createFilterCondition(SearchApiQueryFilterInterface $filter, array $fields, SelectQueryInterface $db_query, SearchApiIndex $index = NULL) {
     $cond = db_condition($filter->getConjunction());
     // Store whether a JOIN already occurred for a field, so we don't JOIN
     // repeatedly for OR filters.
@@ -1680,63 +1705,72 @@ class SearchApiDbService extends SearchApiAbstractService {
     $tables = array();
     foreach ($filter->getFilters() as $f) {
       if (is_object($f)) {
-        $c = $this->createFilterCondition($f, $fields, $db_query);
+        $c = $this->createFilterCondition($f, $fields, $db_query, $index);
         if ($c) {
           $cond->condition($c);
         }
       }
       else {
-        if (!isset($fields[$f[0]])) {
-          throw new SearchApiException(t('Unknown field in filter clause: @field.', array('@field' => $f[0])));
+        list ($field, $value, $operator) = $f;
+        if (!isset($fields[$field])) {
+          throw new SearchApiException(t('Unknown field in filter clause: @field.', array('@field' => $field)));
         }
-        $field = $fields[$f[0]];
-        $not_equals = $f[2] == '<>' || $f[2] == '!=';
-        $text_type = search_api_is_text_type($field['type']);
+        $field_info = $fields[$field];
+        $not_between = $operator === 'NOT BETWEEN';
+        $not_equals = $not_between || $operator === '<>' || $operator === '!=';
+        $text_type = search_api_is_text_type($field_info['type']);
         // If the field is in its own table, we have to check for NULL values in
         // a special way (i.e., check for missing entries in that table).
-        if ($f[1] === NULL && ($field['column'] === 'value' || $text_type)) {
-          $query = $this->connection->select($field['table'], 't')
+        if ($value === NULL && ($field_info['column'] === 'value' || $text_type)) {
+          $query = $this->connection->select($field_info['table'], 't')
             ->fields('t', array('item_id'));
           if ($text_type) {
-            $query->condition('t.field_name', $f[0]);
+            $query->condition('t.field_name', $field);
           }
           $cond->condition('t.item_id', $query, $not_equals ? 'IN' : 'NOT IN');
           continue;
         }
         if ($text_type) {
-          $keys = $this->prepareKeys($f[1]);
+          if (!isset($tokenizer_active)) {
+            $tokenizer_active = $index && static::isTokenizerActive($index);
+          }
+          $keys = $this->prepareKeys($value, $tokenizer_active);
           if (!isset($keys)) {
             continue;
           }
-          $query = $this->createKeysQuery($keys, array($f[0] => $field), $fields);
+          $query = $this->createKeysQuery($keys, array($field => $field_info), $fields);
           // We only want the item IDs, so we use the keys query as a nested query.
           $query = $this->connection->select($query, 't')->fields('t', array('item_id'));
           $cond->condition('t.item_id', $query, $not_equals ? 'NOT IN' : 'IN');
         }
         else {
-          $new_join = search_api_is_list_type($field['type'])
+          $new_join = search_api_is_list_type($field_info['type'])
               && ($filter->getConjunction() == 'AND'
-                  || empty($first_join[$f[0]]));
-          if ($new_join || empty($tables[$f[0]])) {
-            $tables[$f[0]] = $this->getTableAlias($field, $db_query, $new_join);
-            $first_join[$f[0]] = TRUE;
+                  || empty($first_join[$field]));
+          if ($new_join || empty($tables[$field])) {
+            $tables[$field] = $this->getTableAlias($field_info, $db_query, $new_join);
+            $first_join[$field] = TRUE;
           }
-          $column = $tables[$f[0]] . '.' . $field['column'];
-          if ($f[1] === NULL) {
-            $method = ($f[2] == '=') ? 'isNull' : 'isNotNull';
+          $column = $tables[$field] . '.' . $field_info['column'];
+          if ($value === NULL) {
+            $method = ($operator == '=') ? 'isNull' : 'isNotNull';
             $cond->$method($column);
           }
-          elseif ($not_equals && search_api_is_list_type($field['type'])) {
+          elseif ($not_equals && search_api_is_list_type($field_info['type'])) {
             // The situation is more complicated for multi-valued fields, since
             // we must make sure that results are excluded if ANY of the field's
             // values equals the one given in this condition.
-            $query = $this->connection->select($field['table'], 't')
+            $sub_operator = ($not_between) ? 'BETWEEN' : '=';
+            $query = $this->connection->select($field_info['table'], 't')
               ->fields('t', array('item_id'))
-              ->condition($field['column'], $f[1]);
+              ->condition($field_info['column'], $value, $sub_operator);
             $cond->condition('t.item_id', $query, 'NOT IN');
           }
+          elseif ($not_between) {
+            $cond->where("$column NOT BETWEEN {$value[0]} AND {$value[1]}");
+          }
           else {
-            $cond->condition($column, $f[1], $f[2]);
+            $cond->condition($column, $value, $operator);
           }
         }
       }
@@ -1854,13 +1888,20 @@ class SearchApiDbService extends SearchApiAbstractService {
         $alias = $this->getTableAlias($field, $db_query);
         $db_query->orderBy($alias . '.' . $fields[$field_name]['column'], $order);
         // PostgreSQL automatically adds a field to the SELECT list when sorting
-        // on it. Therefore, if we have aggregrations present we also have to
+        // on it. Therefore, if we have aggregations present we also have to
         // add the field to the GROUP BY (since Drupal won't do it for us).
         // However, if no aggregations are present, a GROUP BY would lead to
         // another error. Therefore, we only add it if there is already a GROUP
         // BY.
         if ($db_query->getGroupBy()) {
           $db_query->groupBy($alias . '.' . $fields[$field_name]['column']);
+        }
+        // For SELECT DISTINCT queries in combination with an ORDER BY clause,
+        // MySQL 5.7 and higher require that the ORDER BY expressions are part
+        // of the field list. Ensure that all fields used for sorting are part
+        // of the select list.
+        if (empty($db_fields[$fields[$field_name]['column']])) {
+          $db_query->addField($alias, $fields[$field_name]['column']);
         }
       }
     }
@@ -2085,8 +2126,22 @@ class SearchApiDbService extends SearchApiAbstractService {
 
     // Decide which methods we want to use.
     if ($incomplete_key && $settings['suggest_suffix']) {
-      $passes[] = 1;
-      $incomplete_like = $this->connection->escapeLike($incomplete_key) . '%';
+      $tokenizer_active = static::isTokenizerActive($index);
+      $processed_key = $this->splitKeys($incomplete_key, $tokenizer_active);
+      if ($processed_key) {
+        // In case the $incomplete_key turned out to be more than one word, add
+        // all but the last one to the user input.
+        if (is_array($processed_key)) {
+          unset($processed_key['#conjunction']);
+          $incomplete_key = array_pop($processed_key);
+          if ($processed_key) {
+            $user_input .= ' ' . implode(' ', $processed_key);
+          }
+          $processed_key = $incomplete_key;
+        }
+        $passes[] = 1;
+        $incomplete_like = $this->connection->escapeLike($processed_key) . '%';
+      }
     }
     if ($settings['suggest_words']
         && (!$incomplete_key || strlen($incomplete_key) >= $this->options['min_chars'])) {
@@ -2258,6 +2313,20 @@ class SearchApiDbService extends SearchApiAbstractService {
       return mb_strcut($str, $start, $length);
     }
     return substr($str, $start, $length);
+  }
+
+  /**
+   * Determines whether the "Tokenizer" processor is enabled for an index.
+   *
+   * @param SearchApiIndex $index
+   *   The index to check.
+   *
+   * @return bool
+   *   TRUE if the built-in "Tokenizer" processor is enabled on the given index,
+   *   FALSE otherwise.
+   */
+  protected static function isTokenizerActive(SearchApiIndex $index) {
+    return !empty($index->options['processors']['search_api_tokenizer']['status']);
   }
 
 }
